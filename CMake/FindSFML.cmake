@@ -7,12 +7,12 @@
 
 
 find_path(SFML_INCLUDE_DIRS 
-  NAMES SFML/Audio.hpp SFML/Graphics.hpp SFML/Network.hpp SFML/System.hpp SFML/Window.hpp SFML/OpenGL.hpp
+  NAMES SFML/Graphics.hpp #SFML/Audio.hpp SFML/Network.hpp SFML/System.hpp SFML/Window.hpp SFML/OpenGL.hpp
   PATH /usr/local/include
   DOC "The SFML include directory")
 
 find_library(SFML_LIBRARIES 
-  NAMES sfml-audio sfml-graphics sfml-network sfml-system sfml-window
+  NAMES sfml-graphics # sfml-audio sfml-network sfml-system sfml-window
   PATHS /usr/local/lib
   DOC "The SFML library")
 
