@@ -34,6 +34,6 @@ endmacro()
 include_modules()
 
 set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
-add_executable(EA3D main.cpp)
+add_executable(EA3D sfml.cpp)
 
 target_link_libraries(EA3D ${LIBRARIES})
