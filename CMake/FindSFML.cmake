@@ -12,14 +12,14 @@ set(lib_path /usr/local/lib)
 
 foreach(name ${sfml_lib})
   #header
-  find_path(SFML_${name}_INCLUDE_DIRS 
+  find_path(${name}_INCLUDE_DIRS 
     NAMES SFML/${name}
     PATH ${header_path}
     DOC "The SFML ${name} include directory")
 
   #lib
   #string(TOLOWER ${name} lname)
-  find_library(SFML_${name}_LIBRARIES 
+  find_library(${name}_LIBRARIES 
     NAMES sfml-${name}
     PATHS ${lib_path}
     DOC "The SFML ${name} library")
@@ -28,17 +28,17 @@ foreach(name ${sfml_lib})
   include(FindPackageHandleStandardArgs)
   # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE
   # if all listed variables are TRUE
-  find_package_handle_standard_args(SFMLS DEFAULT_MSG SFML_${name}_INCLUDE_DIRS SFML_${name}_LIBRARIES)
+  find_package_handle_standard_args(${name} DEFAULT_MSG ${name}_INCLUDE_DIRS ${name}_LIBRARIES)
   
-  if (SFML_FOUND)
-    set(SFML_LIBRARIES ${SFML_LIBRARIES} ${SFML_${name}_LIBRARIES})
-    set(SFML_INCLUDE_DIRS ${SFML_INCLUDE_DIRS} ${SFML_${name}_INCLUDE_DIRS} )
+  if (${name}_FOUND)
+    set(SFML_LIBRARIES ${SFML_LIBRARIES} ${${name}_LIBRARIES})
+    set(SFML_INCLUDE_DIRS ${SFML_INCLUDE_DIRS} ${${name}_INCLUDE_DIRS} )
     set(SFML_DEFINITIONS)
   endif()
 
 endforeach()
 
-  find_package_handle_standard_args(SFMLS DEFAULT_MSG SFML_INCLUDE_DIRS SFML_LIBRARIES)
+find_package_handle_standard_args(SFML DEFAULT_MSG SFML_INCLUDE_DIRS SFML_LIBRARIES)
 
 # Tell cmake GUIs to ignore the "local" variables.
 mark_as_advanced(SFML_INCLUDE_DIRS SFML_LIBRARIES)
