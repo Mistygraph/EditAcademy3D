@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
-//#include <GL/glew.h>
+#include <GL/glew.h>
 int main()
 {
-  	//  glewinit();
+    
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
- 
+    glewInit();
     while (window.isOpen())
     {
 	sf::Event event;
