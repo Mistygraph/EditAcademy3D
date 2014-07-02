@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(EA3D)
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/CMake)
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmakemodules)
 
 # Enable debug symbols by default
 if(CMAKE_BUILD_TYPE STREQUAL "")
@@ -27,13 +27,16 @@ macro(include_modules)
   #find glew
   include_module("GLEW")
   #finde SFML
-  include_module("SFML")
+  #include_module("SFML")
 endmacro()
 
+#-- main
 #include modules
 include_modules()
 
-set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
-add_executable(EA3D sfml.cpp)
+set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+#add_definitions(-D__gl_h_ -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED)
+add_subdirectory(src)
 
-target_link_libraries(EA3D ${LIBRARIES})
