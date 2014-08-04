@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <glm/glm.hpp>
+#include "boost/program_options.hpp"
 
 using namespace std;
 static void error_callback(int error, const char* description)
@@ -37,7 +39,8 @@ int main(int argc, const char ** argv)
     glfwSetKeyCallback(window, key_callback);
     
 //    cout<< glGetString(GL_VERSION)<<endl;
-//
+    glm::vec4 Position = glm::vec4(glm::vec3(0.0f), 1.0f);
+    cout << Position[1]<<endl;
     while (!glfwWindowShouldClose(window))
     {
         float ratio;

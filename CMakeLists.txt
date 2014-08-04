@@ -25,18 +25,22 @@ macro(include_modules)
   #find glfw3
   include_module("GLFW")
   #find glew
-  include_module("GLEW")
+  # include_module("GLEW")
   #finde SFML
   #include_module("SFML")
 endmacro()
 
-#-- main
-#include modules
+# ==== main =====
+# include modules
 include_modules()
-
+SET( CMAKE_VERBOSE_MAKEFILE on )
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
-#add_definitions(-D__gl_h_ -DGL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED)
-add_subdirectory(src)
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+# set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+
+# message("PROJECT_BINARY_DIR = " ${PROJECT_BINARY_DIR})
+
+add_subdirectory(ea3dmain)
 
