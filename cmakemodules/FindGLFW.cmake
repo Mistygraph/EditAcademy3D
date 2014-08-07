@@ -9,9 +9,9 @@
 find_path(GLFW_INCLUDE_DIRS 
   NAMES GLFW/glfw3.h
   PATH /usr/local/include
-  DOC "The GLFW include directory")
+  DOC "The boost include directory")
 
-find_library(GLFW_LIBRARIES 
+find_library(GLFW_LIBRARIES
   NAMES glfw3.3
   PATHS /usr/local/lib 
   DOC "The GLFW library")

@@ -10,37 +10,67 @@ endif()
 ## macro - global scope
 
 macro(include_module name)
-  find_package(${name} REQUIRED)
-  if (NOT ${name}_FOUND)
-    message(FATAL_ERROR "Package ${name} not found")
-  endif (NOT ${name}_FOUND)
-  add_definitions(${${name}_DEFINITIONS})
-  include_directories(${${name}_INCLUDE_DIRS})
-  set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
+	find_package(${name} 
+				COMPONENTS ${components}
+				REQUIRED)
+	if (NOT ${name}_FOUND)
+		message(FATAL_ERROR "Package ${name} not found")
+	endif (NOT ${name}_FOUND)
+
+	# -D
+	add_definitions(${${name}_DEFINITIONS}) 
+	include_directories(${${name}_INCLUDE_DIRS})
+	# message("include is " ${name}${${name}_INCLUDE_DIRS})
+	# message("lib is " ${${name}_LIBRARY_DIRS})
+	# set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARY_DIRS})
+	set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
+	# message("libs is " ${${name}_LIBRARIES})
+	# message("libdir is " ${${name}_LIBRARY_DIRS})
 endmacro()
 
 macro(include_modules)
-  #find OpenGL
-  include_module("OPENGL")
-  #find glfw3
-  include_module("GLFW")
-  #find glew
-  # include_module("GLEW")
-  #finde SFML
-  #include_module("SFML")
+	#find OpenGL
+	include_module("OPENGL")
+	#find glfw3
+	include_module("GLFW")
+endmacro()
+
+macro(include_Boost)
+	find_package(Boost
+	             COMPONENTS filesystem
+	                        system
+	                        log
+	                        log_setup
+	                        program_options
+	             REQUIRED)
+	if(Boost_FOUND)
+		# add_definitions(${${name}_DEFINITIONS})
+		message("boost include = " ${Boost_INCLUDE_DIR})
+		message("boost lib = " ${Boost_LIBRARIES})
+		include_directories(${Boost_INCLUDE_DIR})
+		set(LIBRARIES ${LIBRARIES} ${Boost_LIBRARIES})
+	endif()
+
+	
 endmacro()
 
 # ==== main =====
+# system check
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # check apple
+	MATH( EXPR bits " ${CMAKE_SIZEOF_VOID_P}*8 " ) 
+	message("-- This environment is ${bits} bits")
+	message("-- Generator is " ${CMAKE_GENERATOR})
+endif()
+
+
 # include modules
 include_modules()
-SET( CMAKE_VERBOSE_MAKEFILE on )
+include_Boost()
+
+# SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-# set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
-# message("PROJECT_BINARY_DIR = " ${PROJECT_BINARY_DIR})
-
-add_subdirectory(ea3dmain)
+add_subdirectory(Ea3dMain)
 

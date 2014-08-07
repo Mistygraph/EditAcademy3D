@@ -3,10 +3,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <glm/glm.hpp>
-#include "boost/program_options.hpp"
+#include <string>
+#include <unistd.h>
+#include <boost/filesystem.hpp>
+
 
 using namespace std;
+//using boost::filesystem;
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
@@ -16,9 +21,32 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
+void getSetting(){
+
+//    boost::filesystem::path full_path(boost::filesystem::current_path());
+    
+//    std::cout << "Current path is : " << full_path << std::endl;
+    
+//    const char* testFileName = "../resource/setting.ini";
+//    string line;
+//    
+//    std::ifstream myfile;
+//    myfile.open(  testFileName );
+//    if (myfile.is_open())
+//    {
+//        while ( getline (myfile,line) )
+//        {
+//            cout << line << '\n';
+//        }
+//        myfile.close();
+//    }
+//    
+//    myfile.close();
+}
+
 int main(int argc, const char ** argv)
 {
-    
+    getSetting();
     
 	GLFWwindow* window;
 	glfwSetErrorCallback(error_callback);
@@ -39,8 +67,6 @@ int main(int argc, const char ** argv)
 	glfwSetKeyCallback(window, key_callback);
     
 	//    cout<< glGetString(GL_VERSION)<<endl;
-	glm::vec4 Position = glm::vec4(glm::vec3(0.0f), 1.0f);
-	cout << Position[1]<<endl;
 	while (!glfwWindowShouldClose(window))
 	{
 		float ratio;
