@@ -8,7 +8,7 @@
 #include <string>
 #include <unistd.h>
 #include <boost/filesystem.hpp>
-
+#include "ObjFileReader.h"
 
 using namespace std;
 //using boost::filesystem;
@@ -23,9 +23,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 void getSetting(){
 
-//    boost::filesystem::path full_path(boost::filesystem::current_path());
-    
-//    std::cout << "Current path is : " << full_path << std::endl;
+   boost::filesystem::path full_path(boost::filesystem::current_path());
+   std::cout << "Current path is : " << full_path << std::endl;
     
 //    const char* testFileName = "../resource/setting.ini";
 //    string line;

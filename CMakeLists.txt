@@ -11,7 +11,6 @@ endif()
 
 macro(include_module name)
 	find_package(${name} 
-				COMPONENTS ${components}
 				REQUIRED)
 	if (NOT ${name}_FOUND)
 		message(FATAL_ERROR "Package ${name} not found")
@@ -37,16 +36,16 @@ endmacro()
 
 macro(include_Boost)
 	find_package(Boost
-	             COMPONENTS filesystem
-	                        system
-	                        log
-	                        log_setup
-	                        program_options
-	             REQUIRED)
+		COMPONENTS filesystem
+		system
+		log
+		log_setup
+		program_options
+	REQUIRED)
 	if(Boost_FOUND)
 		# add_definitions(${${name}_DEFINITIONS})
-		message("boost include = " ${Boost_INCLUDE_DIR})
-		message("boost lib = " ${Boost_LIBRARIES})
+		# message("boost include = " ${Boost_INCLUDE_DIR})
+		# message("boost lib = " ${Boost_LIBRARIES})
 		include_directories(${Boost_INCLUDE_DIR})
 		set(LIBRARIES ${LIBRARIES} ${Boost_LIBRARIES})
 	endif()

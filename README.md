@@ -1,16 +1,13 @@
 EditAcademy3D
 =============
 
-Dependency
-==========
+####Dependency
 1. Boost/C++11
 2. GLFW3
 
 
-Build Tool
-==========
+####Build Tool
 - Cmake 3.0
 
-OS Environment
-==============
+####OS Environment
 - MacOS 10.9
