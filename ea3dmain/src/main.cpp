@@ -8,10 +8,9 @@
 #include <string>
 #include <unistd.h>
 #include <boost/filesystem.hpp>
-#include "ObjFileReader.h"
+#include "ObjFileReader.hpp"
 
 using namespace std;
-//using boost::filesystem;
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);

@@ -61,6 +61,8 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # check apple
 	message("-- Generator is " ${CMAKE_GENERATOR})
 endif()
 
+message("-- Cmake system Type: " ${CMAKE_SYSTEM_NAME})
+message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 
 # include modules
 include_modules()

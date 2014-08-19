@@ -1,3 +1,4 @@
 build/
 xcodeproj/
-*.ply
+Ea3dMain/resources/obj/
+Ea3dMain/resources/ply/
