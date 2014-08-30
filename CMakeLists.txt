@@ -64,7 +64,7 @@ endif()
 message("-- Cmake system Type: " ${CMAKE_SYSTEM_NAME})
 message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 
-# include modules
+# include basic modules
 include_modules()
 include_Boost()
 

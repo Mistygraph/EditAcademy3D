@@ -8,13 +8,15 @@
 
 #ifndef EA3D_ObjFileReader_h
 #define EA3D_ObjFileReader_h
+#include <iostream>
 
 class ObjFileReader{
     
 public:
 	ObjFileReader(){}
-	void getTest(){std::cout<<"objFileReader"<<std::endl;}
+	void getTest(){std::cout<<"objFileReader getTest"<<std::endl;}
     
+	void getFileName();
 	virtual ~ObjFileReader(){}
     
     

@@ -22,9 +22,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 void getSetting(){
 
-   boost::filesystem::path full_path(boost::filesystem::current_path());
-   std::cout << "Current path is : " << full_path << std::endl;
-    
+	boost::filesystem::path full_path(boost::filesystem::current_path());
+	std::cout << "Current path is : " << full_path << std::endl;
+	ObjFileReader ofr;
+	ofr.getTest();
+	ofr.getFileName();
 //    const char* testFileName = "../resource/setting.ini";
 //    string line;
 //    
@@ -55,7 +57,7 @@ int main(int argc, const char ** argv)
 	//    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	//    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	window = glfwCreateWindow(640, 480, "Edit Academy 3D", NULL, NULL);
+	window                        = glfwCreateWindow(640, 480, "Edit Academy 3D", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -70,7 +72,7 @@ int main(int argc, const char ** argv)
 		float ratio;
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
-		ratio = width / (float) height;
+		ratio                        = width / (float) height;
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
