@@ -1,5 +1,6 @@
 EditAcademy3D
 =============
+GPU Gem
 
 Dependency
 ==========

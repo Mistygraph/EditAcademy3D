@@ -8,6 +8,8 @@
 #include <string>
 #include <unistd.h>
 #include <boost/filesystem.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include "ObjFileReader.hpp"
 
 using namespace std;
@@ -27,21 +29,26 @@ void getSetting(){
 	ObjFileReader ofr;
 	ofr.getTest();
 	ofr.getFileName();
-//    const char* testFileName = "../resource/setting.ini";
-//    string line;
-//    
-//    std::ifstream myfile;
-//    myfile.open(  testFileName );
-//    if (myfile.is_open())
-//    {
-//        while ( getline (myfile,line) )
-//        {
-//            cout << line << '\n';
-//        }
-//        myfile.close();
-//    }
-//    
-//    myfile.close();
+    const char* testFileName = "setting.ini";
+    string line;
+
+    std::ifstream myfile;
+    myfile.open(  testFileName );
+    if (myfile.is_open())
+    {
+        while ( getline (myfile,line) )
+        {
+            cout << line << '\n';
+        }
+        myfile.close();
+    }
+    
+    myfile.close();
+	
+	boost::property_tree::ptree pt;
+	boost::property_tree::ini_parser::read_ini(testFileName, pt);
+	std::cout << pt.get<std::string>("obj_path.base_path") << std::endl;
+	std::cout << pt.get<std::string>("obj_path.cube") << std::endl;
 }
 
 int main(int argc, const char ** argv)

@@ -71,7 +71,10 @@ include_Boost()
 # SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+
+# set paths
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+configure_file("${Ea3dMain_SOURCE_DIR}/setting.ini" "${EA3D_BINARY_DIR}/setting.ini" @ONLY)
 
 add_subdirectory(Ea3dMain)
 
