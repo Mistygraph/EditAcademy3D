@@ -1,4 +1,3 @@
-
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,6 +10,8 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include "ObjFileReader.hpp"
+#include <unordered_map>
+#include "ModelPayload.hpp"
 
 using namespace std;
 static void error_callback(int error, const char* description)
@@ -22,33 +23,34 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
+//-----------------------------------------------------------------------------
 void getSetting(){
 
 	boost::filesystem::path full_path(boost::filesystem::current_path());
 	std::cout << "Current path is : " << full_path << std::endl;
-	ObjFileReader ofr;
-	ofr.getTest();
-	ofr.getFileName();
-    const char* testFileName = "setting.ini";
-    string line;
-
-    std::ifstream myfile;
-    myfile.open(  testFileName );
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
-            cout << line << '\n';
-        }
-        myfile.close();
-    }
-    
-    myfile.close();
+	
+    const std::string testFileName       = "setting.ini";
 	
 	boost::property_tree::ptree pt;
 	boost::property_tree::ini_parser::read_ini(testFileName, pt);
-	std::cout << pt.get<std::string>("obj_path.base_path") << std::endl;
-	std::cout << pt.get<std::string>("obj_path.cube") << std::endl;
+	
+
+	unordered_map<string, unordered_map<string, string>> modelFilePaths ;
+	
+    for (auto& section : pt) {
+        for(auto& key : section.second){      
+            unordered_map<string, string> smodel({{key.first,key.second.get_value<std::string>()}});
+            modelFilePaths.emplace(section.first, smodel); 
+        }
+    }
+    
+    
+    for (auto& key1 : modelFilePaths) {
+        for(auto& key2 : key1.second){
+            cout<<key1.first <<'\n'<<key2.first<<'\t'<<key2.second<<endl;
+        }
+            
+    }
 }
 
 int main(int argc, const char ** argv)
@@ -64,7 +66,7 @@ int main(int argc, const char ** argv)
 	//    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	//    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-	window                        = glfwCreateWindow(640, 480, "Edit Academy 3D", NULL, NULL);
+	window                                  = glfwCreateWindow(640, 480, "Edit Academy 3D", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -79,7 +81,7 @@ int main(int argc, const char ** argv)
 		float ratio;
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
-		ratio                        = width / (float) height;
+		ratio                                  = width / (float) height;
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);

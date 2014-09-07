@@ -58,9 +58,9 @@ endmacro()
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # check apple
 	MATH( EXPR bits " ${CMAKE_SIZEOF_VOID_P}*8 " ) 
 	message("-- This environment is ${bits} bits")
-	message("-- Generator is " ${CMAKE_GENERATOR})
 endif()
 
+message("-- Generator is " ${CMAKE_GENERATOR})
 message("-- Cmake system Type: " ${CMAKE_SYSTEM_NAME})
 message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 
@@ -74,7 +74,5 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 
 # set paths
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
-configure_file("${Ea3dMain_SOURCE_DIR}/setting.ini" "${EA3D_BINARY_DIR}/setting.ini" @ONLY)
 
 add_subdirectory(Ea3dMain)
-
