@@ -1,10 +1,10 @@
 
 project(Ea3dMain)
 # include headers
-
 include_directories(include)
+file(GLOB HEADER_FILES "include/*.h*")
 
-file(GLOB HEADER_FILES "include/*.hpp")
+
 # include source files
 AUX_SOURCE_DIRECTORY(src SOURCE_FILES)
 
