@@ -7,14 +7,13 @@
 #include <fstream>
 #include <glm/glm.hpp>
 #include <string>
-#include <unistd.h>
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include "ObjFileReader.hpp"
 #include <unordered_map>
 #include "Ea3dInit.hpp"
-
+#include "ModelPayload.hpp"
 using namespace std;
 static void error_callback(int error, const char* description)
 {
@@ -36,6 +35,12 @@ int main(int argc, const char ** argv)
 {
     initProgram();
 
+    ModelPayload *mpp = ModelPayload::getInstance();
+    for (auto& key1 : mpp->getModelFiles()) {
+        for(auto& key2 : key1.second){
+            cout<<key1.first <<'\n'<<key2.first<<'\t'<<key2.second<<endl;
+        }
+    }
     GLFWwindow* window;
     glfwSetErrorCallback(error_callback);
     if (!glfwInit())
