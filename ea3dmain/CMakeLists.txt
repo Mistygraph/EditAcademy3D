@@ -1,18 +1,23 @@
 
 project(Ea3dMain)
+
+# -----------------------------------------------------------------------------
 # include headers
 include_directories(include)
 file(GLOB HEADER_FILES "include/*.h*")
 
-
 # include source files
 AUX_SOURCE_DIRECTORY(src SOURCE_FILES)
+
+# include shader files
+file(GLOB SHADER_FILES "shaders/*")
 
 # SET(BUILD_SHARED_LIBS ON)
 message("-- BUILD_SHARED_LIBS: " ${BUILD_SHARED_LIBS})
 message("-- HEADER_FILES: " ${HEADER_FILES})
 message("-- SOURCE_FILES: " ${SOURCE_FILES})
-
+message("-- SHADER_FILES: " ${SHADER_FILES})
+# -----------------------------------------------------------------------------
 
 # copy configuration file
 SET(OBJ_PATH "${Ea3dMain_SOURCE_DIR}/resources/obj")
@@ -32,5 +37,6 @@ ENDIF()
 
 
 
-add_executable(EA3D ${SOURCE_FILES} ${HEADER_FILES})
+
+add_executable(EA3D ${SOURCE_FILES} ${HEADER_FILES} ${SHADER_FILES})
 target_link_libraries(EA3D ${LIBRARIES})
