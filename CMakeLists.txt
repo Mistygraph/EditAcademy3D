@@ -29,6 +29,8 @@ endmacro()
 
 macro(include_modules)
 	#find OpenGL
+	include_module("GLEW")
+	#find OpenGL
 	include_module("OPENGL")
 	#find glfw3
 	include_module("GLFW")
