@@ -13,17 +13,16 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <string>
-//#include "ModelPayload.hpp"
 
-class Ea3dInit{
-    
-public:
+class Ea3dInit {
+
+  public:
     Ea3dInit();
     bool initModelPathSetting();
-    virtual ~Ea3dInit(){}
-private:
-    const std::string settingFileName = "setting.ini";
+    virtual ~Ea3dInit() {}
 
+  private:
+    const std::string settingFileName = "setting.ini";
 };
 
 #endif
