@@ -1,4 +1,4 @@
-#include <OpenGL/gl3.h>
+//#include <OpenGL/gl3.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <stdio.h>
@@ -106,8 +106,8 @@ GLuint CreateShaders(std::string filePath)
 	GLuint v = glCreateShader(GL_VERTEX_SHADER);  //shader step 1. create shader  - vertex shader
 	GLuint f = glCreateShader(GL_FRAGMENT_SHADER);//shader step 1. create shader  - fragment shader
 
-    std::string vert_shader = filePath + ".vs";
-	std::string frag_shader = filePath + ".fs";
+    std::string vert_shader = filePath + ".vert";
+	std::string frag_shader = filePath + ".frag";
 
 	vs = textFileRead((char *)vert_shader.c_str());
 	fs = textFileRead((char *)frag_shader.c_str());

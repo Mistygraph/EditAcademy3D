@@ -1,14 +1,13 @@
 
 #include <GL/glew.h>
 #include "Ea3dPlatform.hpp"
-
 #include "Ea3dInit.hpp"
 #include "ModelPayload.hpp"
 #include <boost/filesystem.hpp>
 #include "Ea3dShaderLoader.hpp"
 #include <iostream>
 #include <string>
-
+#include "Ea3dResource.hpp"
 using namespace std;
 
 //-----------------------------------------------------------------------------
@@ -23,6 +22,10 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action,
 }
 //-----------------------------------------------------------------------------
 void Ea3dPlatform::initPlatform(){
+    
+    Ea3dResource res;
+    
+    
     // init resource (models' path, shaders' paths)
     Ea3dInit ea3dInit;
     ea3dInit.initModelPathSetting();

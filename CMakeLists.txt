@@ -34,8 +34,10 @@ macro(include_modules)
 	include_module("OPENGL")
 	#find glfw3
 	include_module("GLFW")
+	#find jsoncpp
+	include_module("JSONCPP")
 endmacro()
-
+# -----------------------------------------------------------------------------
 macro(include_Boost)
 	find_package(Boost
 		COMPONENTS filesystem
@@ -51,9 +53,8 @@ macro(include_Boost)
 		include_directories(${Boost_INCLUDE_DIR})
 		set(LIBRARIES ${LIBRARIES} ${Boost_LIBRARIES})
 	endif()
-
-	
 endmacro()
+# -----------------------------------------------------------------------------
 
 # ==== main =====
 # system check

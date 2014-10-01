@@ -1,0 +1,35 @@
+{
+  "shader": {
+    "base_path": "@Ea3dMain_SOURCE_DIR@/shaders",
+    "resource": [
+      "shaderToySample"
+    ]
+  },
+  "model": {
+    "sample": {
+      "base_path": "@OBJ_PATH@",
+      "resource": [
+        "cube"
+      ]
+    },
+    "obj": {
+      "base_path": "@OBJ_PATH@",
+      "resource": [
+        "bunny",
+        "cube"
+      ]
+    },
+    "dae": {
+      "base_path": "@DAE_PATH@",
+      "resource": [
+        "pokeball"
+      ]
+    },
+    "3ds": {
+      "base_path": "@DAE_PATH@",
+      "resource": [
+        "pokeball"
+      ]
+    }
+  }
+}
