@@ -1,0 +1,43 @@
+{
+    "OpenGL": {
+        "Major": 3,
+        "Minor": 3
+    },
+    "Window": {
+        "height": 480,
+        "width": 640
+    },
+    "model": {
+        "3ds": {
+            "base_path": "@DAE_PATH@",
+            "resource": [
+                "pokeball"
+            ]
+        },
+        "dae": {
+            "base_path": "@DAE_PATH@",
+            "resource": [
+                "pokeball"
+            ]
+        },
+        "obj": {
+            "base_path": "@OBJ_PATH@",
+            "resource": [
+                "bunny",
+                "cube"
+            ]
+        },
+        "sample": {
+            "base_path": "@OBJ_PATH@",
+            "resource": [
+                "cube"
+            ]
+        }
+    },
+    "shader": {
+        "base_path": "@Ea3dMain_SOURCE_DIR@/shaders",
+        "resource": [
+            "shaderToySample"
+        ]
+    }
+}

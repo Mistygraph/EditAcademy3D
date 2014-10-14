@@ -36,6 +36,9 @@ macro(include_modules)
 	include_module("GLFW")
 	#find jsoncpp
 	include_module("JSONCPP")
+	#find glm
+	include_module("GLM")
+
 endmacro()
 # -----------------------------------------------------------------------------
 macro(include_Boost)

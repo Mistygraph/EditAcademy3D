@@ -5,6 +5,4 @@ char *textFileRead(char *);
 int textFileWrite(char *, char *);
 void printShaderInfoLog(GLuint);
 void printProgramInfoLog(GLuint);
-GLuint CreateShaders(std::string);
-
-GLuint LoadShader(const char *vertex_path, const char *fragment_path);
+GLuint CreateShaders(std::string, std::string);
