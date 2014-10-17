@@ -62,39 +62,10 @@ void Ea3dPlatform::initPlatform() {
     glfwSetKeyCallback(window, key_callback);
 }
 //-----------------------------------------------------------------------------
-void Ea3dPlatform::run() { drawSceneJson(); }
-
-//-----------------------------------------------------------------------------
-void Ea3dPlatform::drawSceneJson() {
-
-    //    // ------------------ path
-    //    string shaderPath_base =
-    //        payload.getResourceRoot()["shader"]["base_path"].asString();
-    //    string shaderSample = "shaderToySample";
-    //    boost::filesystem::path fsp(shaderPath_base);
-    //    fsp /= shaderSample;
-    //    cout << fsp.make_preferred().string() << endl;
-    //
-    //    // -----create shader
-    //    GLuint loc_shader = CreateShaders(fsp.make_preferred().string());
-    //    // ------ set vbo
-    //    float bufferData[] = {0.0f, 0.5f,  0.0f,  0.5f, -0.5f,
-    //                          0.0f, -0.5f, -0.5f, 0.0f};
-    //
-    //    GLuint vboHandle, vaoHandle;
-    //
-    //    glGenBuffers(1, &vboHandle); // vbo
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    //    glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), &bufferData,
-    //                 GL_STATIC_DRAW);
-    //
-    //    glGenVertexArrays(1, &vaoHandle); // vao
-    //    glBindVertexArray(vaoHandle);     // vao
-    //
-    //    glEnableVertexAttribArray(0);
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    //
+void Ea3dPlatform::render() {
+	renderPipeline = new Ea3dRenderPipeline(&payload);
+	renderPipeline->loadModel();
+	renderPipeline->execute();
     // ------------------ path
     string vertPath = getResourcePath("shader", "shaderToySample");
     string fragPath = getResourcePath("shader", "shaderToySample");

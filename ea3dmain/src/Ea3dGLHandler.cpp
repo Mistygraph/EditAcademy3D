@@ -1,11 +1,8 @@
-#include <GL/glew.h>
+// #include <GL/glew.h>
 #include "Ea3dGLHandler.hpp"
 #include <iostream>
 #include <cstdio>
 using namespace std;
-Ea3dGLHandler::Ea3dGLHandler() {
-    // ctor
-}
 void Ea3dGLHandler::sendUniform(const char *name, float val) {
     int loc = getUniformLocation(name);
     if (loc >= 0) {
@@ -14,6 +11,7 @@ void Ea3dGLHandler::sendUniform(const char *name, float val) {
         printf("Uniform: %s not found.\n", name);
     }
 }
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::sendUniform(const char *name, float x, float y, float z) {
     int loc = getUniformLocation(name);
     if (loc >= 0) {
@@ -22,10 +20,11 @@ void Ea3dGLHandler::sendUniform(const char *name, float x, float y, float z) {
         printf("Uniform: %s not found.\n", name);
     }
 }
-
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::sendUniform(const char *name, const vec3 &v) {
     this->sendUniform(name, v.x, v.y, v.z);
 }
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::sendUniform(const char *name, const vec4 &v) {
     int loc = getUniformLocation(name);
     if (loc >= 0) {
@@ -34,6 +33,7 @@ void Ea3dGLHandler::sendUniform(const char *name, const vec4 &v) {
         printf("Uniform: %s not found.\n", name);
     }
 }
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::sendUniform(const char *name, const mat3 &m) {
     int loc = getUniformLocation(name);
     if (loc >= 0) {
@@ -42,6 +42,7 @@ void Ea3dGLHandler::sendUniform(const char *name, const mat3 &m) {
         printf("Uniform: %s not found.\n", name);
     }
 }
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::sendUniform(const char *name, const mat4 &m) {
     int loc = getUniformLocation(name);
     if (loc >= 0) {
@@ -50,7 +51,9 @@ void Ea3dGLHandler::sendUniform(const char *name, const mat4 &m) {
         printf("Uniform: %s not found.\n", name);
     }
 }
+//-----------------------------------------------------------------------------
 int Ea3dGLHandler::getUniformLocation(const char *name) {
     return glGetUniformLocation(this->loc_shader, name);
 }
+//-----------------------------------------------------------------------------
 void Ea3dGLHandler::setLocShader(GLuint loc) { this->loc_shader = loc; }

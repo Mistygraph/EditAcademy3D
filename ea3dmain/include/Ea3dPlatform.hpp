@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "Ea3dPayload.hpp"
 #include <string>
+#include "Ea3dRenderPipeline.hpp"
 class Ea3dPlatform {
 
   public:
@@ -12,8 +13,7 @@ class Ea3dPlatform {
         : winWidth(width), winHeight(height) {}
 
     void initPlatform();
-    void run();
-    void drawSceneJson();
+    void render();
     ~Ea3dPlatform();
 
   private:
@@ -21,8 +21,8 @@ class Ea3dPlatform {
     GLFWwindow *window;
     Ea3dPayload payload;
 	
-	
-	std::string getResourcePath(std::string category, std::string target);
+	Ea3dRenderPipeline *renderPipeline;
+    std::string getResourcePath(std::string category, std::string target);
 };
 
 #endif

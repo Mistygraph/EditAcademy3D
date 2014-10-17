@@ -6,7 +6,7 @@ int main(int argc, const char **argv) {
     
     Ea3dPlatform myPlatform(640, 480);
     myPlatform.initPlatform();
-    myPlatform.run();
+    myPlatform.render();
     exit(EXIT_SUCCESS);
     
 }

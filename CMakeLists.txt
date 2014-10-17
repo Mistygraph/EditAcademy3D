@@ -38,7 +38,9 @@ macro(include_modules)
 	include_module("JSONCPP")
 	#find glm
 	include_module("GLM")
-
+	#find Assim
+	include_module("ASSIMP")
+	
 endmacro()
 # -----------------------------------------------------------------------------
 macro(include_Boost)
