@@ -12,16 +12,7 @@ FIND_PATH(JSONCPP_INCLUDE_DIR json/json.h
 /usr/include
 )
 
-
 set(JSONCPP_NAMES jsoncpp)
-# Get the GCC compiler version
-EXEC_PROGRAM(${CMAKE_CXX_COMPILER}
-            ARGS ${CMAKE_CXX_COMPILER_ARG1} -dumpversion
-            OUTPUT_VARIABLE _gcc_COMPILER_VERSION
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-            )
-			
-
 
 FIND_LIBRARY(JSONCPP_LIBRARY
   NAMES ${JSONCPP_NAMES}
