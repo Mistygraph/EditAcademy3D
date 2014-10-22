@@ -1,7 +1,7 @@
 
 #ifndef EA3D_Ea3dResource_hpp
 #define EA3D_Ea3dResource_hpp
-#include <json/json.h>
+#include <jsoncpp/json/json.h>
 // get resource from json
 class Ea3dResource {
   private:

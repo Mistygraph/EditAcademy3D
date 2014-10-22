@@ -8,10 +8,12 @@
 #  JSONCPP_LIBRARY, where to find the jsoncpp library.
 
 FIND_PATH(JSONCPP_INCLUDE_DIR json/json.h
-/usr/local/include
+/usr/local/include/jsoncpp
 /usr/include
 )
-set(JSONCPP_NAMES json)
+
+
+set(JSONCPP_NAMES jsoncpp)
 # Get the GCC compiler version
 EXEC_PROGRAM(${CMAKE_CXX_COMPILER}
             ARGS ${CMAKE_CXX_COMPILER_ARG1} -dumpversion
@@ -19,7 +21,7 @@ EXEC_PROGRAM(${CMAKE_CXX_COMPILER}
             OUTPUT_STRIP_TRAILING_WHITESPACE
             )
 			
-SET(JSONCPP_NAMES ${JSONCPP_NAMES} libjson_linux-gcc-${_gcc_COMPILER_VERSION}_libmt.so)
+
 
 FIND_LIBRARY(JSONCPP_LIBRARY
   NAMES ${JSONCPP_NAMES}

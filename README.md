@@ -17,7 +17,6 @@ Dependency
 4. GLM (http://glm.g-truc.net/0.9.5/index.html)
 5. jsoncpp (https://github.com/open-source-parsers/jsoncpp)
 	- 4.1 homebrew (https://github.com/cuber/homebrew-jsoncpp)
-	- 4.2 copy a libjson_linux-gcc-4.2.1_libmt.dylib to /usr/local/opt/jsoncpp/lib/ from libjson.dylib 
 
 Build Tool
 ==========

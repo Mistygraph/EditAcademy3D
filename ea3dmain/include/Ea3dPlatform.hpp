@@ -6,6 +6,7 @@
 #include "Ea3dPayload.hpp"
 #include <string>
 #include "Ea3dRenderPipeline.hpp"
+#include <memory>
 class Ea3dPlatform {
 
   public:
@@ -20,9 +21,9 @@ class Ea3dPlatform {
     int winWidth, winHeight;
     GLFWwindow *window;
     Ea3dPayload payload;
-	
-	Ea3dRenderPipeline *renderPipeline;
-    std::string getResourcePath(std::string category, std::string target);
+	 Ea3dRenderPipeline *renderPipeline;
+    //   std::unique_ptr<Ea3dRenderPipeline> renderPipeline;
+    // std::string getResourcePath(std::string category, std::string target);
 };
 
 #endif

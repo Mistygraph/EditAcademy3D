@@ -76,7 +76,10 @@ message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 include_modules()
 include_Boost()
 
+# Compiler Flag
 # SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
+# set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++0x")
+# set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 

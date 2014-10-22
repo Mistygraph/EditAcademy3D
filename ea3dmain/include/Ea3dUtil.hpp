@@ -6,7 +6,6 @@
 #include "Ea3dPayload.hpp"
 namespace Ea3d {
 std::string getShaderPath(Ea3dPayload *payload, std::string target);
-
 std::string getModelPath(Ea3dPayload *payload, std::string fileName);
 
 } // namespace Ea3d

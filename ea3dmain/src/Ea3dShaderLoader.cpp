@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string>
 using namespace std;
+namespace Ea3d {
 char *textFileRead(char *fn) {
     FILE *fp;
     char *content = NULL;
@@ -89,10 +90,8 @@ GLuint CreateShaders(std::string vertPath, std::string fragPath) {
 
     char *vs = NULL, *fs = NULL;
 
-    GLuint v = glCreateShader(
-        GL_VERTEX_SHADER); // shader step 1. create shader  - vertex shader
-    GLuint f = glCreateShader(
-        GL_FRAGMENT_SHADER); // shader step 1. create shader  - fragment shader
+    GLuint v = glCreateShader(GL_VERTEX_SHADER);   // shader step 1. create shader - vertex shader
+    GLuint f = glCreateShader(GL_FRAGMENT_SHADER); // shader step 1. create shader - fragment shader
 
     std::string vert_shader = vertPath + ".vert";
     std::string frag_shader = fragPath + ".frag";
@@ -102,10 +101,8 @@ GLuint CreateShaders(std::string vertPath, std::string fragPath) {
     const char *vv = vs;
     const char *ff = fs;
 
-    glShaderSource(v, 1, &vv,
-                   NULL); // shader step 2. shader source - vertex shader
-    glShaderSource(f, 1, &ff,
-                   NULL); // shader step 2. shader source - fragment shader
+    glShaderSource(v, 1, &vv, NULL); // shader step 2. shader source - vertex shader
+    glShaderSource(f, 1, &ff, NULL); // shader step 2. shader source - fragment shader
 
     free(vs);
     free(fs);
@@ -118,14 +115,13 @@ GLuint CreateShaders(std::string vertPath, std::string fragPath) {
     printShaderInfoLog(f);
     //----------------------------------------
     GLuint shader_program = glCreateProgram(); // program step 1. create program
-    glAttachShader(shader_program,
-                   v); // program step 2. attach shader - vertex shader
-    glAttachShader(shader_program,
-                   f); // program step 2. attach shader - fragment shader
-    glLinkProgram(shader_program); // program step 3. link program
+    glAttachShader(shader_program, v);         // program step 2. attach shader - vertex shader
+    glAttachShader(shader_program, f);         // program step 2. attach shader - fragment shader
+    glLinkProgram(shader_program);             // program step 3. link program
     //---------Troubleshooting: The InfoLog - program------------
     printProgramInfoLog(shader_program);
     //------------------------------------------
     // program step 4. use program
     return shader_program;
 }
+} // namespace Ea3d
