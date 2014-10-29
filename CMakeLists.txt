@@ -49,7 +49,6 @@ macro(include_Boost)
 		system
 		log
 		log_setup
-		program_options
 	REQUIRED)
 	if(Boost_FOUND)
 		# add_definitions(${${name}_DEFINITIONS})

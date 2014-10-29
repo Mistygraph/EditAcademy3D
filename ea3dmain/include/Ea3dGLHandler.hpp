@@ -17,7 +17,7 @@ class Ea3dGLHandler {
     Ea3dGLHandler() {}
     Ea3dGLHandler(GLuint _loc_shader) : loc_shader(_loc_shader) {}
     ~Ea3dGLHandler() {}
-	
+
     int getUniformLocation(const char *name);
     void sendUniform(const char *name, float x, float y, float z);
     void sendUniform(const char *name, const vec2 &v);

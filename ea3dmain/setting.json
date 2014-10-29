@@ -9,7 +9,7 @@
     },
     "model": {
         "3ds": {
-            "base_path": "@DAE_PATH@",
+            "base_path": "@3DS_PATH@",
             "resource": [
                 "pokeball"
             ]

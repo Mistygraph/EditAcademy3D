@@ -23,17 +23,26 @@ message("-- SHADER_FILES: " ${SHADER_FILES})
 # IDE specific
 SET(OBJ_PATH "${Ea3dMain_SOURCE_DIR}/resources/obj")
 SET(DAE_PATH "${Ea3dMain_SOURCE_DIR}/resources/dae")
+SET(3DS_PATH "${Ea3dMain_SOURCE_DIR}/resources/3ds")
 SET(SAMPLE_PATH "${Ea3dMain_SOURCE_DIR}/resources/sample")
 SET(SETTING_PATH "${Ea3dMain_SOURCE_DIR}/setting.json")
+
 IF(${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
-	configure_file(${SETTING_PATH} "${EA3D_BINARY_DIR}/setting.json" @ONLY)
 	message("-- Generate a configure file to ${EA3D_BINARY_DIR}/setting.json")
+	configure_file(${SETTING_PATH} "${EA3D_BINARY_DIR}/setting.json" @ONLY)
 	
 ELSEIF(${CMAKE_GENERATOR} STREQUAL "Xcode")
-	configure_file(${SETTING_PATH} "${EA3D_BINARY_DIR}/Debug/setting.json" @ONLY)
 	message("-- Generate a configure file to ${EA3D_BINARY_DIR}/Debug/setting.json")
+	configure_file(${SETTING_PATH} "${EA3D_BINARY_DIR}/Debug/setting.json" @ONLY)
 	
+	# Copy clang-format
+	SET(clang-format "${EA3D_SOURCE_DIR}/.clang-format")
+	message("-- Copy .clang-format file to ${EA3D_BINARY_DIR}/.clang-format")
+	configure_file(${clang-format} "${EA3D_BINARY_DIR}/.clang-format")
 ENDIF()
+
+
+
 
 
 add_executable(EA3D ${SOURCE_FILES} ${HEADER_FILES} ${SHADER_FILES})
