@@ -1,6 +1,8 @@
 EditAcademy3D
 =============
-This is a cg programming platform which developer is able to focus on the algorithm without worry about setting.
+This is a CG programming platform server as two goal. 
+1. Developers are learning advanced math throught computer graphic
+2. Developers are able to focus on the algorithm without too worry about setting.
 
 Reference
 =========
@@ -26,3 +28,8 @@ Build Tool
 OS Environment
 --------------
 - MacOS 10.10
+
+Info
+----
+[OpenGL Terminology](http://stackoverflow.com/a/166572)
+[Vertex Specification Best Practices](https://www.opengl.org/wiki/Vertex_Specification_Best_Practices)

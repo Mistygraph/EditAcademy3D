@@ -13,7 +13,6 @@
 
 #define BOOST_LOG_DYN_LINK 1
 #include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
 
 using namespace std;
 void Ea3dRenderPipeline::iniPipeline() {}
@@ -29,44 +28,61 @@ void Ea3dRenderPipeline::loadModel() {
     }
 
     vector<float> mesh_vertex;
+    vector<float> mesh_normal;
+    vector<float> mesh_index;
     aiMesh *mesh = *(sc->mMeshes);
+    // http://www.lighthouse3d.com/cg-topics/code-samples/importing-3d-models-with-assimp/
     if (sc->HasMeshes()) {
-        BOOST_LOG_TRIVIAL(debug) << "# of Meshes = "<<sc->mNumMeshes;
+        BOOST_LOG_TRIVIAL(debug) << "Number of Meshes = " << sc->mNumMeshes;
+        // For each mesh
         for (auto i = 0; i < sc->mNumMeshes; ++i) {
+            // Faces (index / 3)
+            BOOST_LOG_TRIVIAL(debug) << "Number of Faces = " << mesh->mNumFaces;
+            for (unsigned int t = 0; t < mesh->mNumFaces; ++t){
+                unsigned int *ver = mesh->mFaces[t].mIndices;
+                cout<<ver[0]<<" "<<ver[1]<<" "<< ver[2]<<endl;
+                
+                mesh_index.push_back(ver[0]);
+                mesh_index.push_back(ver[1]);
+                mesh_index.push_back(ver[2]);
+            }
+            
+            // Get vertex info
             if (mesh->mNumVertices > 0) {
-                BOOST_LOG_TRIVIAL(debug) << "# of Vertices = "<<mesh->mNumVertices;
+                BOOST_LOG_TRIVIAL(debug) << "Number of Vertices = " << mesh->mNumVertices;
+                // while obj loaded into assimp, they reorganize the content
+                // For each set of vertices
                 for (auto j = 0; j < mesh->mNumVertices; ++j) {
-                    aiVector3D &vert = mesh->mVertices[j];
-                    mesh_vertex.push_back(vert.x);
-                    mesh_vertex.push_back(vert.y);
-                    mesh_vertex.push_back(vert.z);
+                    cout << j << endl;
+                    // Vertices
+                    if (mesh->HasPositions()) {
+                        aiVector3D &vert = mesh->mVertices[j];
+                        cout << vert.x << " " << vert.y << " " << vert.z << endl;
+                        mesh_vertex.push_back(vert.x);
+                        mesh_vertex.push_back(vert.y);
+                        mesh_vertex.push_back(vert.z);
+                    }
+
+                    // Normals
+                    if (mesh->HasNormals()) {
+                        // BOOST_LOG_TRIVIAL(debug) << "has Normals";
+                        auto vert = mesh->mNormals[j];
+                        cout << vert.x << " " << vert.y << " " << vert.z << endl;
+                        mesh_normal.push_back(vert.x);
+                        mesh_normal.push_back(vert.y);
+                        mesh_normal.push_back(vert.z);
+                    }
                 }
+                
             }
         }
     } else {
         cout << "Error: No meshes found";
     }
 
-    BOOST_LOG_TRIVIAL(debug) << "A debug severity message";
-    
-
-    //    if ((*mesh)->mNumVertices > 0) {
-    //        for (uint i = 0; i < (*mesh)->mNumVertices; ++i) {
-    //            aiVector3D &vert = (*mesh)->mVertices[i];
-    //            cout << i << ".\t";
-    //            cout << vert.x << '\t' << vert.y << '\t' << vert.z << endl;
-    //        }
-    //    }
-    //
-    //    if ((*mesh)->mNumFaces > 0) {
-    //        //        aiFace *face = (*mesh)->mFaces;
-    //        cout << "Number of Faces = " << (*mesh)->mNumFaces << endl;
-    //        for (unsigned int i = 0; i < (*mesh)->mNumFaces; ++i) {
-    //            uint *idx = (*mesh)->mFaces[i].mIndices;
-    //            cout << i << ".\t";
-    //            cout << idx[0] << '\t' << idx[1] << '\t' << idx[2] << endl;
-    //        }
-    //    }
+    BOOST_LOG_TRIVIAL(trace) << "trace message";
+    BOOST_LOG_TRIVIAL(info) << "info message";
+    BOOST_LOG_TRIVIAL(error) << "error message";
 
     //    string vertPath = Ea3d::getShaderPath(payload, "shaderToySample");
     //    string fragPath = Ea3d::getShaderPath(payload, "shaderToySample");

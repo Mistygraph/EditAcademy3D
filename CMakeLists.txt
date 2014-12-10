@@ -49,6 +49,7 @@ macro(include_Boost)
 		system
 		log
 		log_setup
+		thread
 	REQUIRED)
 	if(Boost_FOUND)
 		# add_definitions(${${name}_DEFINITIONS})
