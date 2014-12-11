@@ -8,16 +8,17 @@ Reference
 =========
 Algorithm
 ---------
-[GPU Gem](http://http.developer.nvidia.com/GPUGems/gpugems_part01.html)
+- [GPU Gem](http://http.developer.nvidia.com/GPUGems/gpugems_part01.html)
+- [Generating Complex Procedural Terrains](http://http.developer.nvidia.com/GPUGems3/gpugems3_ch01.html)
 
 Dependency
 ----------
-1. [Boost/C++11](http://www.boost.org/) 1.56
-2. [GLFW3](http://www.glfw.org/) 3.0.4
-3. [GLEW](http://glew.sourceforge.net/) 1.11.0
-4. [Assimp](http://assimp.sourceforge.net/) 3.1.1
-4. [GLM](http://glm.g-truc.net/0.9.5/index.html) 0.9.5
-5. [Jsoncpp](https://github.com/open-source-parsers/jsoncpp) 0.6.0-rc2
+1. [Boost/C++11](http://www.boost.org/) v 1.56
+2. [GLFW3](http://www.glfw.org/) v 3.0.4
+3. [GLEW](http://glew.sourceforge.net/) v 1.11.0
+4. [Assimp](http://assimp.sourceforge.net/) v 3.1.1
+4. [GLM](http://glm.g-truc.net/0.9.5/index.html) v 0.9.5
+5. [Jsoncpp](https://github.com/open-source-parsers/jsoncpp) v 0.6.0-rc2
 	- Install through [Homebrew](https://github.com/cuber/homebrew-jsoncpp)
 
 
