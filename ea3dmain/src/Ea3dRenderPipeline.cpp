@@ -31,7 +31,6 @@ void Ea3dRenderPipeline::loadModel() {
     vector<float> mesh_normal;
     vector<float> mesh_index;
     aiMesh *mesh = *(sc->mMeshes);
-    // http://www.lighthouse3d.com/cg-topics/code-samples/importing-3d-models-with-assimp/
     if (sc->HasMeshes()) {
         BOOST_LOG_TRIVIAL(debug) << "Number of Meshes = " << sc->mNumMeshes;
         // For each mesh
@@ -67,7 +66,7 @@ void Ea3dRenderPipeline::loadModel() {
                     if (mesh->HasNormals()) {
                         // BOOST_LOG_TRIVIAL(debug) << "has Normals";
                         auto vert = mesh->mNormals[j];
-                        cout << vert.x << " " << vert.y << " " << vert.z << endl;
+                        BOOST_LOG_TRIVIAL(debug) << vert.x << " " << vert.y << " " << vert.z ;
                         mesh_normal.push_back(vert.x);
                         mesh_normal.push_back(vert.y);
                         mesh_normal.push_back(vert.z);
