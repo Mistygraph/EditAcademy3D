@@ -33,7 +33,7 @@ void initLogging() {
     src::severity_logger< severity_level > lg;
     BOOST_LOG_SEV(lg, debug) << FILE;
     BOOST_LOG_SEV(lg, debug) << __LINE__;
-    BOOST_LOG_SEV(lg, info) << "An informational severity message";
+    BOOST_LOG_SEV(lg, info) << __FUNCTION__;
     BOOST_LOG_SEV(lg, warning) << "A warning severity message";
     BOOST_LOG_SEV(lg, error) << "An error severity message";
     BOOST_LOG_SEV(lg, fatal) << "A fatal severity message";
