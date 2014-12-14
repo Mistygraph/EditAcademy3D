@@ -78,9 +78,9 @@ void Ea3dRenderPipeline::loadModel() {
     } else {
         cout << "Error: No meshes found";
     }
-
+    string fi = (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__);
     BOOST_LOG_TRIVIAL(trace) << "trace message";
-    BOOST_LOG_TRIVIAL(info) << "info message";
+    BOOST_LOG_TRIVIAL(info) << fi;
     BOOST_LOG_TRIVIAL(error) << "error message";
 
     //    string vertPath = Ea3d::getShaderPath(payload, "shaderToySample");

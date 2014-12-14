@@ -50,6 +50,7 @@ macro(include_Boost)
 		log
 		log_setup
 		thread
+		# date_time
 	REQUIRED)
 	if(Boost_FOUND)
 		# add_definitions(${${name}_DEFINITIONS})
