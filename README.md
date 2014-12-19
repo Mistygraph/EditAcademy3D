@@ -30,13 +30,19 @@ OS Environment
 --------------
 - MacOS 10.10
 
-Info
-----
-- [OpenGL Terminology](http://stackoverflow.com/a/166572)
-- [Vertex Specification Best Practices](https://www.opengl.org/wiki/Vertex_Specification_Best_Practices)
-- [Assimp usage](http://www.lighthouse3d.com/cg-topics/code-samples/importing-3d-models-with-assimp/)
-- [Boost logging Level](http://stackoverflow.com/a/22397685)
-- [Boost logging console format](http://stackoverflow.com/a/17473875)
-- [Boost logging tutorial](http://csfreebird.blogspot.com/2013/12/use-boost-log-step1.html)
-- [Boost logging file line](http://csfreebird.blogspot.com/2013/12/use-boost-log-step-8.html)
-- [__FILE__ macro shows full path](http://stackoverflow.com/a/8488201)
+Development Info
+----------------
+- [OpenGL Terminology](http://stackoverflow.com/a/166572)  
+- [Vertex Specification Best Practices](https://www.opengl.org/wiki/Vertex_Specification_Best_Practices)  
+- [Assimp usage](http://www.lighthouse3d.com/cg-topics/code-samples/importing-3d-models-with-assimp/)  
+- [Boost logging Level](http://stackoverflow.com/a/22397685)  
+- [Boost logging console format](http://stackoverflow.com/a/17473875)  
+- [Boost logging tutorial](http://csfreebird.blogspot.com/2013/12/use-boost-log-step1.html)  
+- [Boost logging file line](http://csfreebird.blogspot.com/2013/12/use-boost-log-step-8.html)  
+- [/__FILE__ macro shows full path](http://stackoverflow.com/a/8488201)  
+- [OpenGL Object binding](https://www.opengl.org/wiki/OpenGL_Object)  
+- [Perspective Matrix - Frustum](http://www.songho.ca/opengl/gl_projectionmatrix.html)  
+- [Perspective Matrix - ratio](http://ogldev.atspace.co.uk/www/tutorial12/tutorial12.html)
+- glDrawElements start index 0 not 1 (Zero-based numbering)
+
+

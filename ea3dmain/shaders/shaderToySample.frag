@@ -1,7 +1,7 @@
 #version 330
 
-//layout( location = 0 ) out vec4 FragColor;
-out vec4 FragColor;
+layout( location = 0 ) out vec4 FragColor;
+//out vec4 FragColor;
 
 uniform vec3      iResolution;           // viewport resolution (in pixels)
 uniform float     iGlobalTime;           // shader playback time (in seconds)

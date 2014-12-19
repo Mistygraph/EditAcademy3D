@@ -1,5 +1,5 @@
 
-
+#include <GL/glew.h>
 #include "Ea3dRenderPipeline.hpp"
 #include <iostream>
 #include "Ea3dUtil.hpp"
@@ -27,9 +27,9 @@ void Ea3dRenderPipeline::loadModel() {
         cout << importer.GetErrorString();
     }
 
-    vector<float> mesh_vertex;
-    vector<float> mesh_normal;
-    vector<float> mesh_index;
+//    vector<float> mesh_vertex;
+//    vector<float> mesh_normal;
+//    vector<GLuint> mesh_index;
     aiMesh *mesh = *(sc->mMeshes);
     if (sc->HasMeshes()) {
         BOOST_LOG_TRIVIAL(debug) << "Number of Meshes = " << sc->mNumMeshes;
@@ -37,26 +37,26 @@ void Ea3dRenderPipeline::loadModel() {
         for (auto i = 0; i < sc->mNumMeshes; ++i) {
             // Faces (index / 3)
             BOOST_LOG_TRIVIAL(debug) << "Number of Faces = " << mesh->mNumFaces;
-            for (unsigned int t = 0; t < mesh->mNumFaces; ++t){
+            for (auto t = 0; t < mesh->mNumFaces; ++t) {
                 unsigned int *ver = mesh->mFaces[t].mIndices;
-                cout<<ver[0]<<" "<<ver[1]<<" "<< ver[2]<<endl;
-                
+                BOOST_LOG_TRIVIAL(trace) << ver[0] << " " << ver[1] << " " << ver[2];
+                this->num_indices += 3;
                 mesh_index.push_back(ver[0]);
                 mesh_index.push_back(ver[1]);
                 mesh_index.push_back(ver[2]);
             }
-            
+
             // Get vertex info
             if (mesh->mNumVertices > 0) {
                 BOOST_LOG_TRIVIAL(debug) << "Number of Vertices = " << mesh->mNumVertices;
                 // while obj loaded into assimp, they reorganize the content
                 // For each set of vertices
                 for (auto j = 0; j < mesh->mNumVertices; ++j) {
-                    cout << j << endl;
+
                     // Vertices
                     if (mesh->HasPositions()) {
                         aiVector3D &vert = mesh->mVertices[j];
-                        cout << vert.x << " " << vert.y << " " << vert.z << endl;
+                        BOOST_LOG_TRIVIAL(trace) << vert.x << " " << vert.y << " " << vert.z;
                         mesh_vertex.push_back(vert.x);
                         mesh_vertex.push_back(vert.y);
                         mesh_vertex.push_back(vert.z);
@@ -66,81 +66,165 @@ void Ea3dRenderPipeline::loadModel() {
                     if (mesh->HasNormals()) {
                         // BOOST_LOG_TRIVIAL(debug) << "has Normals";
                         auto vert = mesh->mNormals[j];
-                        BOOST_LOG_TRIVIAL(debug) << vert.x << " " << vert.y << " " << vert.z ;
+                        BOOST_LOG_TRIVIAL(trace) << vert.x << " " << vert.y << " " << vert.z;
                         mesh_normal.push_back(vert.x);
                         mesh_normal.push_back(vert.y);
                         mesh_normal.push_back(vert.z);
                     }
                 }
-                
             }
         }
     } else {
-        cout << "Error: No meshes found";
+        BOOST_LOG_TRIVIAL(error) << "Error: No meshes found";
     }
-    string fi = (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__);
-    BOOST_LOG_TRIVIAL(trace) << "trace message";
-    BOOST_LOG_TRIVIAL(info) << fi;
-    BOOST_LOG_TRIVIAL(error) << "error message";
+}
+void Ea3dRenderPipeline::setShader(){
+    // --------------------------------------------------------------
+//    vector<float> mesh_vertex{0.0f, 0.5f, 0.0f,
+//                            -0.5f, -0.5f, 0.0f,
+//                            0.5f, -0.5f, 0.0f};
+//    
+//    vector<float> mesh_normal;
+//    vector<GLuint> mesh_index{0, 1, 2};
+    // setup shader
+    string vertPath = Ea3d::getShaderPath(payload, "sample");
+    string fragPath = Ea3d::getShaderPath(payload, "sample");
+    this->loc_shader = Ea3d::CreateShaders(vertPath, fragPath);
+    BOOST_LOG_TRIVIAL(debug) << "loc_shader = " << loc_shader;
+    // Pass shader into glHandler
+    this->glHandler.setLocShader(loc_shader);
 
-    //    string vertPath = Ea3d::getShaderPath(payload, "shaderToySample");
-    //    string fragPath = Ea3d::getShaderPath(payload, "shaderToySample");
-    //    GLuint loc_shader = Ea3d::CreateShaders(vertPath, fragPath);
+    // Bind vao
+    glGenVertexArrays(1, &this->vaoHandle);
+    glBindVertexArray(this->vaoHandle);
 
-    //    GLuint vboHandle, vaoHandle;
-    //    glGenBuffers(1, &vboHandle); // vbo
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    //    glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), &bufferData,
-    //    GL_STATIC_DRAW);
-    //
-    //    glGenVertexArrays(1, &vaoHandle); // vao
-    //    glBindVertexArray(vaoHandle);     // vao
-    //
-    //    glEnableVertexAttribArray(0);
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    // Bind vbo
+    glGenBuffers(3, vboHandles);
 
-    //---------------------------------------------------------------
-    //    glGenVertexArrays( 1, &vaoHandle);
-    //    glBindVertexArray(vaoHandle);
-    //
-    //    glGenBuffers(3, vboHandles);
-    //
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandles[0]);
-    //    //The GL_ARRAY_BUFFER​ binding is NOT part of the VAO's state!
-    //    //I know that's confusing, but that's the way it is.
-    //    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float),
-    //    &vertices[0],
-    //    GL_STATIC_DRAW);
-    //    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-    //    glEnableVertexAttribArray(0);  // Vertex Data
-    //
-    //    glBindBuffer(GL_ARRAY_BUFFER, vboHandles[1]);
-    //    glBufferData(GL_ARRAY_BUFFER, normal.size() * sizeof(float), &normal[0],
-    //    GL_STATIC_DRAW);
-    //    glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
-    //    glEnableVertexAttribArray(1);  // Normal Data
-    //
-    //    //index data
-    //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboHandles[2]);
-    //    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
-    //    &indices[0],
-    //    GL_STATIC_DRAW);
+    // Vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandles[0]);
+    glBufferData(GL_ARRAY_BUFFER, this->mesh_vertex.size() * sizeof(float), &mesh_vertex[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
+    glEnableVertexAttribArray(0);
+
+    // Normal data
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandles[1]);
+    glBufferData(GL_ARRAY_BUFFER, mesh_normal.size() * sizeof(float), &mesh_normal[0],
+                 GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
+    glEnableVertexAttribArray(1); // Normal Data
+    
+    // Index data
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboHandles[2]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh_index.size() * sizeof(GLuint), &mesh_index[0],
+                 GL_DYNAMIC_DRAW);
+
+    //-------------------------------------------------------------------
+    // set uniform matrix
+    // translate
+    glm::mat4 m_trans = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
+
+    // matrix view
+    glm::mat4 m_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),
+                                   glm::vec3(0.0f, 1.0f, 0.0f));
+    BOOST_LOG_TRIVIAL(debug) << "m-view";
+    for(int i = 0; i< 4; ++i)
+    {
+        for(int j = 0; j< 4; ++j)
+            cout<<m_view[i][j]<<" ";
+        cout<<endl;
+    }
+    
+    // Model View Matrix
+    this->ModelViewMatrix = m_view * m_trans;
+    
+    BOOST_LOG_TRIVIAL(debug) << "m-modelview";
+    for(int i = 0; i< 4; ++i)
+    {
+        for(int j = 0; j< 4; ++j)
+            cout<<ModelViewMatrix[i][j]<<" ";
+        cout<<endl;
+    }
+    
+    // Perspective Matrix
+    auto wheight = this->payload->getResourceRoot()["Window"]["height"].asFloat();
+    auto wwidth = this->payload->getResourceRoot()["Window"]["width"].asFloat();
+    cout<<wheight <<" "<<wwidth<<" "<<wwidth/wheight<<endl;
+    glm::mat4 m_pers = glm::perspective(45.0f, wwidth/wheight, 1.0f, 200.0f);
+    BOOST_LOG_TRIVIAL(debug) << "m-pers";
+    for(int i = 0; i< 4; ++i)
+    {
+        for(int j = 0; j< 4; ++j)
+            cout<<m_pers[i][j]<<" ";
+        cout<<endl;
+    }
+    
+    this->MVP = m_pers * this->ModelViewMatrix;
+
+    BOOST_LOG_TRIVIAL(debug) << "MVP";
+    for(int i = 0; i< 4; ++i)
+    {
+        for(int j = 0; j< 4; ++j)
+            cout<<MVP[i][j]<<" ";
+        cout<<endl;
+    }
+    // normal matrix
+    glm::mat3 norm = glm::mat3(glm::vec3(ModelViewMatrix[0]), glm::vec3(ModelViewMatrix[1]),
+                               glm::vec3(ModelViewMatrix[2]));
+
+    this->NormalMatrix = glm::inverse(norm);
+
+}
+void Ea3dRenderPipeline::glUniformSender() {
+    // Send matrix to shader
+    this->glHandler.sendUniform("MVP", this->MVP);
+    this->glHandler.sendUniform("ModelViewMatrix", this->ModelViewMatrix);
+    this->glHandler.sendUniform("NormalMatrix", this->NormalMatrix);
+}
+
+void Ea3dRenderPipeline::draw() {
+    if (this->loc_shader >= 0) {
+        glUseProgram(this->loc_shader);
+    } else {
+        cerr << "Location of shader used by VBO cloth is not found. loc shader: "
+             << this->loc_shader << endl;
+    }
+
+    this->glUniformSender();
+    glBindVertexArray(this->vaoHandle);
+    glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, 0);
+//    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+//    glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 void Ea3dRenderPipeline::execute() {
-
-    /*
-        if model not create || change model
-            -> loadModel
-        if shader info not create || change shader
-            -> create shader
-    */
+    //testing triangle
+    // ------------------ path
+    string vertPath = Ea3d::getShaderPath(payload, "shaderToySample");
+    string fragPath = Ea3d::getShaderPath(payload, "shaderToySample");
+    // -----create shader
+    GLuint loc_shader = Ea3d::CreateShaders(vertPath, fragPath);
 
     // ------ set vbo
-    // float bufferData[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
+    
+//    vector<float> bufferData{0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
+    vector<float> bufferData{0.0f, 1.0f, 0.0f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f};
+    GLuint vboHandle, vaoHandle;
 
-    //    glUseProgram(loc_shader);
+    glGenBuffers(1, &vboHandle); // vbo
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+    glBufferData(GL_ARRAY_BUFFER, bufferData.size() * sizeof(float), &bufferData[0], GL_STATIC_DRAW);
 
-    //    glBindVertexArray(vaoHandle);
-    //    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glGenVertexArrays(1, &vaoHandle); // vao
+    glBindVertexArray(vaoHandle);     // vao
+
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glUseProgram(loc_shader);
+
+    glBindVertexArray(vaoHandle);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    
 }

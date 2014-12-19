@@ -60,54 +60,19 @@ void Ea3dPlatform::initPlatform() {
 void Ea3dPlatform::render() {
     renderPipeline = new Ea3dRenderPipeline(&payload);
     renderPipeline->loadModel();
-    renderPipeline->execute();
-    std::unique_ptr<int> u3(new int);
-    // ------------------ path
-    //    string vertPath = getResourcePath("shader", "shaderToySample");
-    //    string fragPath = getResourcePath("shader", "shaderToySample");
-    // -----create shader
-    //    GLuint loc_shader = CreateShaders(vertPath, fragPath);
-
+    renderPipeline->setShader();
+    
+    
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // ------ set vbo
-        //        float bufferData[] = {0.0f, 0.5f,  0.0f,  0.5f, -0.5f,
-        //                              0.0f, -0.5f, -0.5f, 0.0f};
-        //
-        //        GLuint vboHandle, vaoHandle;
-        //
-        //        glGenBuffers(1, &vboHandle); // vbo
-        //        glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-        //        glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), &bufferData,
-        //                     GL_STATIC_DRAW);
-        //
-        //        glGenVertexArrays(1, &vaoHandle); // vao
-        //        glBindVertexArray(vaoHandle);     // vao
-        //
-        //        glEnableVertexAttribArray(0);
-        //        glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-        //        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-        //
-        //        glUseProgram(loc_shader);
-        //
-        //        glBindVertexArray(vaoHandle);
-        //        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        renderPipeline->draw();
+//        renderPipeline->execute();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    //    delete renderPipeline;
+    delete renderPipeline;
 }
-//-----------------------------------------------------------------------------
-// string Ea3dPlatform::getResourcePath(string category, string target) {
-//     boost::filesystem::path fsp(
-//         payload.getResourceRoot()[category]["base_path"].asString());
-//     fsp /= target;
-//
-//     return fsp.make_preferred().string();
-// }
 //-----------------------------------------------------------------------------
 Ea3dPlatform::~Ea3dPlatform() {
     glfwDestroyWindow(this->window);
