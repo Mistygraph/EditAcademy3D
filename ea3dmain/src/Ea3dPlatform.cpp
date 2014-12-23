@@ -4,6 +4,9 @@
 #include <boost/filesystem.hpp>
 #include <iostream>
 #include <memory>
+#define BOOST_LOG_DYN_LINK 1
+#include <boost/log/trivial.hpp>
+
 using namespace std;
 
 //-----------------------------------------------------------------------------
@@ -46,8 +49,8 @@ void Ea3dPlatform::initPlatform() {
 
     glfwMakeContextCurrent(window);
 
-    cout << "OpenGL Version: " << glGetString(GL_VERSION) << endl;
-    cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+    BOOST_LOG_TRIVIAL(info) << " -- OpenGL Version: " << glGetString(GL_VERSION) ;
+    BOOST_LOG_TRIVIAL(info) << " -- GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) ;
 
     // init glew and default gl-enabled
     glewExperimental = GL_TRUE;

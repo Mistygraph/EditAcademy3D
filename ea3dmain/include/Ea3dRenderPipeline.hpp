@@ -7,6 +7,8 @@
 #include "Ea3dGLHandler.hpp"
 #include "Ea3dPayload.hpp"
 #include <vector>
+
+// pipeline for transform base rendering
 class Ea3dRenderPipeline {
 
   public:
@@ -38,12 +40,13 @@ class Ea3dRenderPipeline {
     mat4 m_screen;
     
     /*light*/
-    vec4 LightPosition;
-    vec3 Ka;
-    vec3 Kd;
-    vec3 Ks;
-    vec3 Iads;
-    float Shininess;
+    vec3 LightPosition;
+    vec3 Iads; // light intensity
+    
+    vec3 Ka; //ambien
+    vec3 Kd; //diffuse
+    vec3 Ks; //specular
+    float Shininess; // psacular
     
     /*Geometry data*/
     GLsizei num_indices;

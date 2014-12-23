@@ -43,6 +43,11 @@ Development Info
 - [OpenGL Object binding](https://www.opengl.org/wiki/OpenGL_Object)  
 - [Perspective Matrix - Frustum](http://www.songho.ca/opengl/gl_projectionmatrix.html)  
 - [Perspective Matrix - ratio](http://ogldev.atspace.co.uk/www/tutorial12/tutorial12.html)
-- glDrawElements start index 0 not 1 (Zero-based numbering)
-
+- glDrawElements start index 0 not 1 (Zero-based numbering)  
+- [Normal Matrix](http://www.lighthouse3d.com/tutorials/glsl-tutorial/the-normal-matrix/)  
+- [GLSL const expression](http://stackoverflow.com/a/17478629)  
+- [GL quaternion](http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/#How_do_I_create_a_quaternion_in_GLSL__)
+- [C++ get variable name](http://www.cplusplus.com/forum/beginner/11252/#msg53160)  
+- [c++ global macro access](http://stackoverflow.com/a/1399076)  
+- [Why does C++ not have reflection?](http://stackoverflow.com/a/359462)  
 

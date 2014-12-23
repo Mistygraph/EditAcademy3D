@@ -10,9 +10,11 @@
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <glm/gtc/type_ptr.hpp>
 #define BOOST_LOG_DYN_LINK 1
 #include <boost/log/trivial.hpp>
+
+//#define TO_STREAM(stream,variable) (stream) <<#variable": "<<(variable)
 
 using namespace std;
 void Ea3dRenderPipeline::iniPipeline() {}
@@ -27,9 +29,9 @@ void Ea3dRenderPipeline::loadModel() {
         cout << importer.GetErrorString();
     }
 
-//    vector<float> mesh_vertex;
-//    vector<float> mesh_normal;
-//    vector<GLuint> mesh_index;
+    //    vector<float> mesh_vertex;
+    //    vector<float> mesh_normal;
+    //    vector<GLuint> mesh_index;
     aiMesh *mesh = *(sc->mMeshes);
     if (sc->HasMeshes()) {
         BOOST_LOG_TRIVIAL(debug) << "Number of Meshes = " << sc->mNumMeshes;
@@ -78,14 +80,14 @@ void Ea3dRenderPipeline::loadModel() {
         BOOST_LOG_TRIVIAL(error) << "Error: No meshes found";
     }
 }
-void Ea3dRenderPipeline::setShader(){
+void Ea3dRenderPipeline::setShader() {
     // --------------------------------------------------------------
-//    vector<float> mesh_vertex{0.0f, 0.5f, 0.0f,
-//                            -0.5f, -0.5f, 0.0f,
-//                            0.5f, -0.5f, 0.0f};
-//    
-//    vector<float> mesh_normal;
-//    vector<GLuint> mesh_index{0, 1, 2};
+    //    vector<float> mesh_vertex{0.0f, 0.5f, 0.0f,
+    //                            -0.5f, -0.5f, 0.0f,
+    //                            0.5f, -0.5f, 0.0f};
+    //
+    //    vector<float> mesh_normal;
+    //    vector<GLuint> mesh_index{0, 1, 2};
     // setup shader
     string vertPath = Ea3d::getShaderPath(payload, "sample");
     string fragPath = Ea3d::getShaderPath(payload, "sample");
@@ -114,7 +116,7 @@ void Ea3dRenderPipeline::setShader(){
                  GL_DYNAMIC_DRAW);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
     glEnableVertexAttribArray(1); // Normal Data
-    
+
     // Index data
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboHandles[2]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh_index.size() * sizeof(GLuint), &mesh_index[0],
@@ -122,52 +124,56 @@ void Ea3dRenderPipeline::setShader(){
 
     //-------------------------------------------------------------------
     // set uniform matrix
+
     // translate
+    
+    glm::mat4 m_rotate1 = glm::rotate(glm::mat4(1.0f), 180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 m_rotate = glm::rotate(m_rotate1, 60.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
     glm::mat4 m_trans = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
 
     // matrix view
     glm::mat4 m_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f),
                                    glm::vec3(0.0f, 1.0f, 0.0f));
     BOOST_LOG_TRIVIAL(debug) << "m-view";
-    for(int i = 0; i< 4; ++i)
-    {
-        for(int j = 0; j< 4; ++j)
-            cout<<m_view[i][j]<<" ";
-        cout<<endl;
-    }
-    
+    //    for(int i = 0; i< 4; ++i)
+    //    {
+    //        for(int j = 0; j< 4; ++j)
+    //            cout<<m_view[i][j]<<" ";
+    //        cout<<endl;
+    //    }
+
     // Model View Matrix
-    this->ModelViewMatrix = m_view * m_trans;
-    
+    this->ModelViewMatrix = m_view * m_trans;// * m_rotate;
+
     BOOST_LOG_TRIVIAL(debug) << "m-modelview";
-    for(int i = 0; i< 4; ++i)
-    {
-        for(int j = 0; j< 4; ++j)
-            cout<<ModelViewMatrix[i][j]<<" ";
-        cout<<endl;
-    }
-    
+    //    for(int i = 0; i< 4; ++i)
+    //    {
+    //        for(int j = 0; j< 4; ++j)
+    //            cout<<ModelViewMatrix[i][j]<<" ";
+    //        cout<<endl;
+    //    }
+
     // Perspective Matrix
     auto wheight = this->payload->getResourceRoot()["Window"]["height"].asFloat();
     auto wwidth = this->payload->getResourceRoot()["Window"]["width"].asFloat();
-    cout<<wheight <<" "<<wwidth<<" "<<wwidth/wheight<<endl;
-    glm::mat4 m_pers = glm::perspective(45.0f, wwidth/wheight, 1.0f, 200.0f);
+    cout << wheight << " " << wwidth << " " << wwidth / wheight << endl;
+    glm::mat4 m_pers = glm::perspective(45.0f, wwidth / wheight, 1.0f, 200.0f);
     BOOST_LOG_TRIVIAL(debug) << "m-pers";
-    for(int i = 0; i< 4; ++i)
-    {
-        for(int j = 0; j< 4; ++j)
-            cout<<m_pers[i][j]<<" ";
-        cout<<endl;
-    }
-    
+    //    for(int i = 0; i< 4; ++i)
+    //    {
+    //        for(int j = 0; j< 4; ++j)
+    //            cout<<m_pers[i][j]<<" ";
+    //        cout<<endl;
+    //    }
+
     this->MVP = m_pers * this->ModelViewMatrix;
 
     BOOST_LOG_TRIVIAL(debug) << "MVP";
-    for(int i = 0; i< 4; ++i)
-    {
-        for(int j = 0; j< 4; ++j)
-            cout<<MVP[i][j]<<" ";
-        cout<<endl;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j)
+            cout << MVP[i][j] << " ";
+        cout << endl;
     }
     // normal matrix
     glm::mat3 norm = glm::mat3(glm::vec3(ModelViewMatrix[0]), glm::vec3(ModelViewMatrix[1]),
@@ -175,12 +181,29 @@ void Ea3dRenderPipeline::setShader(){
 
     this->NormalMatrix = glm::inverse(norm);
 
+    // -----------------------------
+    this->LightPosition = glm::vec3(0., 0., 10.);
+    this->Iads = glm::vec3(1., 1., 1.);
+
+    this->Ka = glm::vec3(.2, .2, .2); // Ambient reflectivity
+    this->Kd = glm::vec3(.5, .5, .5); // Diffuse reflectivity
+    this->Ks = glm::vec3(.3, .3, .3); // Specular reflectivity
+    this->Shininess = 64.;
 }
 void Ea3dRenderPipeline::glUniformSender() {
     // Send matrix to shader
     this->glHandler.sendUniform("MVP", this->MVP);
     this->glHandler.sendUniform("ModelViewMatrix", this->ModelViewMatrix);
     this->glHandler.sendUniform("NormalMatrix", this->NormalMatrix);
+
+    this->glHandler.sendUniform("NormalMatrix", this->NormalMatrix);
+
+    this->glHandler.sendUniform("LightPosition", this->LightPosition);
+    this->glHandler.sendUniform("Kd", this->Kd);
+    this->glHandler.sendUniform("Ka", this->Ka);
+    this->glHandler.sendUniform("Ks", this->Ks);
+    this->glHandler.sendUniform("Shininess", this->Shininess);
+    this->glHandler.sendUniform("Iads", this->Iads);
 }
 
 void Ea3dRenderPipeline::draw() {
@@ -194,11 +217,11 @@ void Ea3dRenderPipeline::draw() {
     this->glUniformSender();
     glBindVertexArray(this->vaoHandle);
     glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, 0);
-//    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-//    glDrawArrays(GL_TRIANGLES, 0, 3);
+    //    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    //    glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 void Ea3dRenderPipeline::execute() {
-    //testing triangle
+    // testing triangle
     // ------------------ path
     string vertPath = Ea3d::getShaderPath(payload, "shaderToySample");
     string fragPath = Ea3d::getShaderPath(payload, "shaderToySample");
@@ -206,14 +229,15 @@ void Ea3dRenderPipeline::execute() {
     GLuint loc_shader = Ea3d::CreateShaders(vertPath, fragPath);
 
     // ------ set vbo
-    
-//    vector<float> bufferData{0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
+
+    //    vector<float> bufferData{0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
     vector<float> bufferData{0.0f, 1.0f, 0.0f, 0.5f, -0.5f, 0.5f, -0.5f, -0.5f, 0.5f};
     GLuint vboHandle, vaoHandle;
 
     glGenBuffers(1, &vboHandle); // vbo
     glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-    glBufferData(GL_ARRAY_BUFFER, bufferData.size() * sizeof(float), &bufferData[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, bufferData.size() * sizeof(float), &bufferData[0],
+                 GL_STATIC_DRAW);
 
     glGenVertexArrays(1, &vaoHandle); // vao
     glBindVertexArray(vaoHandle);     // vao
@@ -226,5 +250,4 @@ void Ea3dRenderPipeline::execute() {
 
     glBindVertexArray(vaoHandle);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    
 }
