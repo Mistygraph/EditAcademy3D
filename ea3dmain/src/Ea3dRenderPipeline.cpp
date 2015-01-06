@@ -24,7 +24,6 @@ void Ea3dRenderPipeline::loadModel() {
     const aiScene *sc =
         importer.ReadFile(pfile, aiProcess_CalcTangentSpace | aiProcess_Triangulate |
                                      aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
-
     if (!sc) {
         cout << importer.GetErrorString();
     }
@@ -189,6 +188,8 @@ void Ea3dRenderPipeline::setShader() {
     this->Kd = glm::vec3(.5, .5, .5); // Diffuse reflectivity
     this->Ks = glm::vec3(.3, .3, .3); // Specular reflectivity
     this->Shininess = 64.;
+    
+    cout<<this->num_indices<<endl;
 }
 void Ea3dRenderPipeline::glUniformSender() {
     // Send matrix to shader
@@ -217,8 +218,7 @@ void Ea3dRenderPipeline::draw() {
     this->glUniformSender();
     glBindVertexArray(this->vaoHandle);
     glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, 0);
-    //    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-    //    glDrawArrays(GL_TRIANGLES, 0, 3);
+
 }
 void Ea3dRenderPipeline::execute() {
     // testing triangle

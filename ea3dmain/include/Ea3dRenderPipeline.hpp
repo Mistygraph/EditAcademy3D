@@ -49,7 +49,8 @@ class Ea3dRenderPipeline {
     float Shininess; // psacular
     
     /*Geometry data*/
-    GLsizei num_indices;
+//    GLsizei num_indices;
+    GLuint num_indices;
     std::vector<float> mesh_vertex;
     std::vector<float> mesh_normal;
     std::vector<GLuint> mesh_index;

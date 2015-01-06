@@ -13,7 +13,7 @@ Algorithm
 
 Dependency
 ----------
-1. [Boost/C++11](http://www.boost.org/) v 1.56
+1. [Boost/C++11](http://www.boost.org/) v 1.57
 2. [GLFW3](http://www.glfw.org/) v 3.0.4
 3. [GLEW](http://glew.sourceforge.net/) v 1.11.0
 4. [Assimp](http://assimp.sourceforge.net/) v 3.1.1
@@ -24,7 +24,7 @@ Dependency
 
 Build Tool
 ----------
-- Cmake 3.0.2
+- Cmake 3.1.0
 
 OS Environment
 --------------
