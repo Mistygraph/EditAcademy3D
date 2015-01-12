@@ -1,3 +1,5 @@
 build/
-Ea3dMain/resources/
+Ea3dMain/resources/3ds
+Ea3dMain/resources/dae
+Ea3dMain/resources/ply
 TODO.md

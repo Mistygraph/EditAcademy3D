@@ -19,11 +19,11 @@
 using namespace std;
 void Ea3dRenderPipeline::iniPipeline() {}
 void Ea3dRenderPipeline::loadModel() {
-    const string pfile = Ea3d::getModelPath(payload, "cube.obj");
+    const string pfile = Ea3d::getModelPath(payload, "bunny.obj");
     Assimp::Importer importer;
-    const aiScene *sc =
-        importer.ReadFile(pfile, aiProcess_CalcTangentSpace | aiProcess_Triangulate |
-                                     aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+    const aiScene *sc = importer.ReadFile(
+        pfile, aiProcess_CalcTangentSpace | aiProcess_Triangulate |
+                   aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_GenNormals);
     if (!sc) {
         cout << importer.GetErrorString();
     }
@@ -125,7 +125,7 @@ void Ea3dRenderPipeline::setShader() {
     // set uniform matrix
 
     // translate
-    
+
     glm::mat4 m_rotate1 = glm::rotate(glm::mat4(1.0f), 180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 m_rotate = glm::rotate(m_rotate1, 60.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
@@ -143,7 +143,7 @@ void Ea3dRenderPipeline::setShader() {
     //    }
 
     // Model View Matrix
-    this->ModelViewMatrix = m_view * m_trans;// * m_rotate;
+    this->ModelViewMatrix = m_view * m_trans; // * m_rotate;
 
     BOOST_LOG_TRIVIAL(debug) << "m-modelview";
     //    for(int i = 0; i< 4; ++i)
@@ -188,8 +188,8 @@ void Ea3dRenderPipeline::setShader() {
     this->Kd = glm::vec3(.5, .5, .5); // Diffuse reflectivity
     this->Ks = glm::vec3(.3, .3, .3); // Specular reflectivity
     this->Shininess = 64.;
-    
-    cout<<this->num_indices<<endl;
+
+    cout << this->num_indices << endl;
 }
 void Ea3dRenderPipeline::glUniformSender() {
     // Send matrix to shader
@@ -218,7 +218,6 @@ void Ea3dRenderPipeline::draw() {
     this->glUniformSender();
     glBindVertexArray(this->vaoHandle);
     glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, 0);
-
 }
 void Ea3dRenderPipeline::execute() {
     // testing triangle
