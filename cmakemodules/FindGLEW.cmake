@@ -6,17 +6,32 @@
 #  GLEW_DEFINITIONS - Compiler switches required for using GLEW
 
 
-find_path(GLEW_INCLUDE_DIRS 
-  NAMES GL/glew.h
-  PATH /usr/local/include
-  DOC "The GLEW include directory")
+IF (WIN32)
+	#message("-- " $ENV{PROGRAMFILES})
+	FIND_PATH( GLEW_INCLUDE_DIRS GL/glew.h
+		$ENV{PROGRAMFILES}/usr/include
+		${PROJECT_SOURCE_DIR}/usr/include
+		DOC "The directory where GL/glew.h resides")
+	FIND_LIBRARY( GLEW_LIBRARIES
+		NAMES glew GLEW glew32 glew32s
+		PATHS
+		$ENV{PROGRAMFILES}/usr/lib
+		${PROJECT_SOURCE_DIR}/usr/bin
+		${PROJECT_SOURCE_DIR}/usr/lib
+		DOC "The GLEW library")
+		
+ELSE (WIN32)
+	find_path(GLEW_INCLUDE_DIRS 
+	  NAMES GL/glew.h
+	  PATH /usr/local/include
+	  DOC "The GLEW include directory")
 
-find_library(GLEW_LIBRARIES 
-  NAMES glew GLEW
-  PATHS /usr/local/lib
-  DOC "The GLEW library")
+	find_library(GLEW_LIBRARIES 
+	  NAMES glew GLEW
+	  PATHS /usr/local/lib
+	  DOC "The GLEW library")
 
-
+ENDIF (WIN32)
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE
 # if all listed variables are TRUE

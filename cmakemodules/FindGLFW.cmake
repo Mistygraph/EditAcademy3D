@@ -5,17 +5,31 @@
 #  GLFW_LIBRARS - The libraries needed to use GLFW
 #  GLFW_DEFINITIONS - Compiler switches required for using GLFW
 
+IF (WIN32)
+	#message("-- " $ENV{PROGRAMFILES})
+	FIND_PATH( GLFW_INCLUDE_DIRS GLFW/glfw3.h
+		$ENV{PROGRAMFILES}/usr/include
+		${PROJECT_SOURCE_DIR}/usr/include
+		DOC "The directory where GLFW/glfw3.h resides")
+	FIND_LIBRARY( GLFW_LIBRARIES
+		NAMES glfw glfw3
+		PATHS
+		$ENV{PROGRAMFILES}/usr/lib
+		${PROJECT_SOURCE_DIR}/usr/bin
+		${PROJECT_SOURCE_DIR}/usr/lib
+		DOC "The GLFW library")
+		
+ELSE (WIN32)
+	find_path(GLFW_INCLUDE_DIRS 
+	  NAMES GLFW/glfw3.h
+	  PATH /usr/local/include
+	  DOC "The boost include directory")
 
-find_path(GLFW_INCLUDE_DIRS 
-  NAMES GLFW/glfw3.h
-  PATH /usr/local/include
-  DOC "The boost include directory")
-
-find_library(GLFW_LIBRARIES
-  NAMES glfw3.3
-  PATHS /usr/local/lib 
-  DOC "The GLFW library")
-
+	find_library(GLFW_LIBRARIES
+	  NAMES glfw3.3
+	  PATHS /usr/local/lib 
+	  DOC "The GLFW library")
+ENDIF (WIN32)
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set LOGGING_FOUND to TRUE
