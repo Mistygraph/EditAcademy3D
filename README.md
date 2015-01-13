@@ -20,7 +20,7 @@ Dependency
 4. [GLM](http://glm.g-truc.net/0.9.5/index.html) v 0.9.5
 5. [Jsoncpp](https://github.com/open-source-parsers/jsoncpp) v 0.6.0-rc2
 	- Install through [Homebrew](https://github.com/cuber/homebrew-jsoncpp)
-
+6. [rapidjson](https://github.com/miloyip/rapidjson)
 
 Build Tool
 ----------
