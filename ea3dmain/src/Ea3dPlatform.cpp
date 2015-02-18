@@ -33,12 +33,14 @@ void Ea3dPlatform::initPlatform() {
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
+    const Json::Value &rscRoot = this->payload.getResourceRoot();
+    
+    BOOST_LOG_TRIVIAL(info) <<" -- OpenGL setting major version : "<<rscRoot["OpenGL"]["Major"].asInt();
+    BOOST_LOG_TRIVIAL(info) <<" -- OpenGL setting minor version : "<<rscRoot["OpenGL"]["Minor"].asInt();
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,
-                   payload.getResourceRoot()["OpenGL"]["Major"].asInt());
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,
-                   payload.getResourceRoot()["OpenGL"]["Minor"].asInt());
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, rscRoot["OpenGL"]["Major"].asInt());
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, rscRoot["OpenGL"]["Minor"].asInt());
 
     window = glfwCreateWindow(this->winWidth, this->winHeight, "Edit Academy 3D", NULL, NULL);
 
@@ -77,7 +79,7 @@ void Ea3dPlatform::render() {
     delete renderPipeline;
 }
 //-----------------------------------------------------------------------------
-Ea3dPlatform::~Ea3dPlatform() {
+Ea3dPlatform::~Ea3dPlatform(){
     glfwDestroyWindow(this->window);
     glfwTerminate();
     // This destroys any remaining windows and releases any other resources

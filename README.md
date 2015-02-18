@@ -17,10 +17,10 @@ Dependency
 2. [GLFW3](http://www.glfw.org/) v 3.0.4
 3. [GLEW](http://glew.sourceforge.net/) v 1.11.0
 4. [Assimp](http://assimp.sourceforge.net/) v 3.1.1
-4. [GLM](http://glm.g-truc.net/0.9.5/index.html) v 0.9.5
-5. [Jsoncpp](https://github.com/open-source-parsers/jsoncpp) v 0.6.0-rc2
+5. [GLM](http://glm.g-truc.net/0.9.5/index.html) v 0.9.5
+6. [Jsoncpp](https://github.com/open-source-parsers/jsoncpp) v 0.6.0-rc2
 	- Install through [Homebrew](https://github.com/cuber/homebrew-jsoncpp)
-6. [rapidjson](https://github.com/miloyip/rapidjson)
+
 
 Build Tool
 ----------
@@ -50,4 +50,6 @@ Development Info
 - [C++ get variable name](http://www.cplusplus.com/forum/beginner/11252/#msg53160)  
 - [c++ global macro access](http://stackoverflow.com/a/1399076)  
 - [Why does C++ not have reflection?](http://stackoverflow.com/a/359462)  
+- [How to read a file from c++](http://insanecoding.blogspot.com/2011/11/how-to-read-in-file-in-c.html)  
+- [Data Banking](http://www.gamasutra.com/view/feature/3984/delicious_data_baking.php)  
 

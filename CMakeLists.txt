@@ -34,12 +34,12 @@ macro(include_modules)
 	include_module("OPENGL")
 	#find glfw3
 	include_module("GLFW")
-	#find jsoncpp
-	include_module("JSONCPP")
 	#find glm
 	include_module("GLM")
 	#find Assim
 	include_module("ASSIMP")
+	#find JSONCPP
+	include_module("JSONCPP")
 	
 endmacro()
 # -----------------------------------------------------------------------------

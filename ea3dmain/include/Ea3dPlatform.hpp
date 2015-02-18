@@ -15,13 +15,14 @@ class Ea3dPlatform {
 
     void initPlatform();
     void render();
+    
     ~Ea3dPlatform();
 
   private:
     int winWidth, winHeight;
     GLFWwindow *window;
     Ea3dPayload payload;
-	 Ea3dRenderPipeline *renderPipeline;
+    Ea3dRenderPipeline *renderPipeline;
     //   std::unique_ptr<Ea3dRenderPipeline> renderPipeline;
     // std::string getResourcePath(std::string category, std::string target);
 };
