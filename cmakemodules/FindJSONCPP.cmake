@@ -8,16 +8,14 @@
 #  JSONCPP_LIBRARY, where to find the jsoncpp library.
 set(JSONCPP_NAMES jsoncpp)
 
-FIND_PATH(JSONCPP_INCLUDE_DIR 
+FIND_PATH(JSONCPP_INCLUDE_DIR
   NAMES
     json/json.h
-  PATH
+  PATHS
   	/usr/local/include/jsoncpp
     /usr/include/jsoncpp/
   	/usr/include
 	DOC "The JSONCpp include directory")
-
-#set(JSONCPP_NAMES jsoncpp)
 
 FIND_LIBRARY(JSONCPP_LIBRARY
   NAMES 
