@@ -23,8 +23,6 @@ class Ea3dPlatform {
     GLFWwindow *window;
     Ea3dPayload payload;
     Ea3dRenderPipeline *renderPipeline;
-    //   std::unique_ptr<Ea3dRenderPipeline> renderPipeline;
-    // std::string getResourcePath(std::string category, std::string target);
 };
 
 #endif

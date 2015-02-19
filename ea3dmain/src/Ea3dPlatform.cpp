@@ -34,9 +34,7 @@ void Ea3dPlatform::initPlatform() {
         exit(EXIT_FAILURE);
 
     const Json::Value &rscRoot = this->payload.getResourceRoot();
-    
-    BOOST_LOG_TRIVIAL(info) <<" -- OpenGL setting major version : "<<rscRoot["OpenGL"]["Major"].asInt();
-    BOOST_LOG_TRIVIAL(info) <<" -- OpenGL setting minor version : "<<rscRoot["OpenGL"]["Minor"].asInt();
+    cout<<"heere"<<endl;
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, rscRoot["OpenGL"]["Major"].asInt());
@@ -51,8 +49,8 @@ void Ea3dPlatform::initPlatform() {
 
     glfwMakeContextCurrent(window);
 
-    BOOST_LOG_TRIVIAL(info) << " -- OpenGL Version: " << glGetString(GL_VERSION) ;
-    BOOST_LOG_TRIVIAL(info) << " -- GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) ;
+    BOOST_LOG_TRIVIAL(info) << "OpenGL Version: " << glGetString(GL_VERSION) ;
+    BOOST_LOG_TRIVIAL(info) << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) ;
 
     // init glew and default gl-enabled
     glewExperimental = GL_TRUE;
