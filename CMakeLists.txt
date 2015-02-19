@@ -30,16 +30,18 @@ endmacro()
 macro(include_modules)
 	#find OpenGL
 	include_module("GLEW")
-	#find OpenGL
-	include_module("OPENGL")
+	if(APPLE)
+		#find OpenGL
+		include_module("OPENGL")
+	endif(APPLE)
 	#find glfw3
 	include_module("GLFW")
 	#find glm
 	include_module("GLM")
-	#find Assim
-	include_module("ASSIMP")
 	#find JSONCPP
 	include_module("JSONCPP")
+	#find Assim
+	include_module("ASSIMP")
 	
 endmacro()
 # -----------------------------------------------------------------------------

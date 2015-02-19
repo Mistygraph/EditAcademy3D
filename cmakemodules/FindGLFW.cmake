@@ -12,11 +12,13 @@ IF (WIN32)
 		${PROJECT_SOURCE_DIR}/usr/include
 		DOC "The directory where GLFW/glfw3.h resides")
 	FIND_LIBRARY( GLFW_LIBRARIES
-		NAMES glfw glfw3
+		NAMES 
+			glfw 
+			glfw3
 		PATHS
-		$ENV{PROGRAMFILES}/usr/lib
-		${PROJECT_SOURCE_DIR}/usr/bin
-		${PROJECT_SOURCE_DIR}/usr/lib
+			$ENV{PROGRAMFILES}/usr/lib
+			${PROJECT_SOURCE_DIR}/usr/bin
+			${PROJECT_SOURCE_DIR}/usr/lib
 		DOC "The GLFW library")
 		
 ELSE (WIN32)
@@ -26,8 +28,11 @@ ELSE (WIN32)
 	  DOC "The boost include directory")
 
 	find_library(GLFW_LIBRARIES
-	  NAMES glfw3.3
-	  PATHS /usr/local/lib 
+	  NAMES 
+	  	glfw3.3
+	  	glfw3
+	  PATHS 
+	  	/usr/local/lib 
 	  DOC "The GLFW library")
 ENDIF (WIN32)
 
