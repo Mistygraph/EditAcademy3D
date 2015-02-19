@@ -39,7 +39,7 @@ macro(include_modules)
 	#find glm
 	include_module("GLM")
 	#find JSONCPP
-	include_module("JSONCPP")
+	# include_module("JSONCPP")
 	#find Assim
 	include_module("ASSIMP")
 	
@@ -89,4 +89,4 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 # set paths
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
-add_subdirectory(Ea3dMain)
+add_subdirectory(ea3dmain)
