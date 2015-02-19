@@ -39,7 +39,7 @@ macro(include_modules)
 	#find glm
 	include_module("GLM")
 	#find JSONCPP
-	# include_module("JSONCPP")
+	include_module("JSONCPP")
 	#find Assim
 	include_module("ASSIMP")
 	
