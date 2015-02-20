@@ -34,6 +34,35 @@ macro(include_modules)
 		#find OpenGL
 		include_module("OPENGL")
 	endif(APPLE)
+	if(${CMAKE_SYSTEM_NAME} MATCHES Linux)
+		find_package(OpenGL REQUIRED)
+		# IF(${OPENGL_GLU_FOUND})
+		# 	message("-- system has GLU")
+		# ENDIF()
+
+		# IF(OPENGL_INCLUDE_DIR)
+		# 	message("-- system has OPENGL_INCLUDE_DIR")
+		# ENDIF()
+
+		# IF(${OpenGL_LIBRARY_DIRS})
+		# 	message("-- system has OPENGL_LIBRARIES")
+		# ENDIF()
+		# IF(${OPENGL_DEFINITIONS})
+		# 	message("-- system has OPENGL_DEFINITIONS")
+		# ENDIF()
+		if (OPENGL_FOUND)
+			include_directories(OPENGL_INCLUDE_DIR)
+			set(LIBRARIES ${LIBRARIES} OPENGL_LIBRARIES)
+			# add_definitions(OPENGL_DEFINITIONS)
+
+			# include_directories(${OpenGL_INCLUDE_DIRS})
+			# link_directories(${OpenGL_LIBRARY_DIRS})
+			# add_definitions(${OpenGL_DEFINITIONS})
+		else()
+			message("OpenGL not found")
+		endif()
+		
+	ENDIF()
 	#find glfw3
 	include_module("GLFW")
 	#find glm
@@ -83,7 +112,12 @@ include_Boost()
 # SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++0x")
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+IF(Darwin)
+	set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+ELSE(${CMAKE_SYSTEM_NAME} MATCHES Linux) 
+	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+ENDIF()
+
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 
 # set paths
