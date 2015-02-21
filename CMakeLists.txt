@@ -19,50 +19,10 @@ macro(include_module name)
 	# -D
 	add_definitions(${${name}_DEFINITIONS}) 
 	include_directories(${${name}_INCLUDE_DIRS})
-	# message("include is " ${name}${${name}_INCLUDE_DIRS})
-	# message("lib is " ${${name}_LIBRARY_DIRS})
-	# set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARY_DIRS})
 	set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
-	# message("libs is " ${${name}_LIBRARIES})
-	# message("libdir is " ${${name}_LIBRARY_DIRS})
 endmacro()
 
-macro(include_modules)
-	#find OpenGL
-	include_module("GLEW")
-	if(APPLE)
-		#find OpenGL
-		include_module("OPENGL")
-	endif(APPLE)
-	if(${CMAKE_SYSTEM_NAME} MATCHES Linux)
-		find_package(OpenGL REQUIRED)
-		# IF(${OPENGL_GLU_FOUND})
-		# 	message("-- system has GLU")
-		# ENDIF()
-
-		# IF(OPENGL_INCLUDE_DIR)
-		# 	message("-- system has OPENGL_INCLUDE_DIR")
-		# ENDIF()
-
-		# IF(${OpenGL_LIBRARY_DIRS})
-		# 	message("-- system has OPENGL_LIBRARIES")
-		# ENDIF()
-		# IF(${OPENGL_DEFINITIONS})
-		# 	message("-- system has OPENGL_DEFINITIONS")
-		# ENDIF()
-		if (OPENGL_FOUND)
-			include_directories(OPENGL_INCLUDE_DIR)
-			set(LIBRARIES ${LIBRARIES} OPENGL_LIBRARIES)
-			# add_definitions(OPENGL_DEFINITIONS)
-
-			# include_directories(${OpenGL_INCLUDE_DIRS})
-			# link_directories(${OpenGL_LIBRARY_DIRS})
-			# add_definitions(${OpenGL_DEFINITIONS})
-		else()
-			message("OpenGL not found")
-		endif()
-		
-	ENDIF()
+macro(include_custom_modules)
 	#find glfw3
 	include_module("GLFW")
 	#find glm
@@ -92,7 +52,23 @@ macro(include_Boost)
 	endif()
 endmacro()
 # -----------------------------------------------------------------------------
-
+macro(include_cmake_modules name) # cmake support modules
+	find_package(${name} REQUIRED)
+	if(${${name}_FOUND})
+		add_definitions(${${name}_DEFINITIONS}) 
+		include_directories(${${name}_INCLUDE_DIRS})
+		set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
+		
+		# include_directories(${Boost_INCLUDE_DIR})
+		# set(LIBRARIES ${LIBRARIES} ${Boost_LIBRARIES})
+	endif()
+endmacro()
+# -----------------------------------------------------------------------------
+macro(include_cmake_supported_modules)
+	include_cmake_modules("OPENGL")
+	include_cmake_modules("GLEW")
+	include_Boost()
+endmacro()
 # ==== main =====
 # system check
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # check apple
@@ -105,19 +81,13 @@ message("-- Cmake system Type: " ${CMAKE_SYSTEM_NAME})
 message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 
 # include basic modules
-include_modules()
-include_Boost()
-
+include_custom_modules()
+include_cmake_supported_modules()
 # Compiler Flag
 # SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++0x")
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
-IF(Darwin)
-	set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
-ELSE(${CMAKE_SYSTEM_NAME} MATCHES Linux) 
-	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
-ENDIF()
-
+set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 
 # set paths
