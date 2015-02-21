@@ -52,4 +52,5 @@ Development Info
 - [Why does C++ not have reflection?](http://stackoverflow.com/a/359462)  
 - [How to read a file from c++](http://insanecoding.blogspot.com/2011/11/how-to-read-in-file-in-c.html)  
 - [Data Banking](http://www.gamasutra.com/view/feature/3984/delicious_data_baking.php)  
-
+- [cmake - drawback of glob](http://stackoverflow.com/a/18538444)  
+http://www.cmake.org/pipermail/cmake/2010-July/037984.html

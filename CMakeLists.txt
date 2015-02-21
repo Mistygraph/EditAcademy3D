@@ -58,17 +58,21 @@ macro(include_cmake_modules name) # cmake support modules
 		add_definitions(${${name}_DEFINITIONS}) 
 		include_directories(${${name}_INCLUDE_DIRS})
 		set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
-		
-		# include_directories(${Boost_INCLUDE_DIR})
-		# set(LIBRARIES ${LIBRARIES} ${Boost_LIBRARIES})
 	endif()
 endmacro()
 # -----------------------------------------------------------------------------
 macro(include_cmake_supported_modules)
+	
 	IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 		include_cmake_modules("OPENGL")
-	else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-		include_cmake_modules("OpenGL")
+	# else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+		# find_package(OpenGL REQUIRED)
+		# if(${OPENGL_FOUND})
+		# 	add_definitions(${OPENGL_DEFINITIONS}) 
+		# 	include_directories(${OPENGL_INCLUDE_DIR})
+		# 	set(LIBRARIES ${LIBRARIES} ${OPENGL_LIBRARIES})
+
+		# endif()
 	endif()
 	include_cmake_modules("GLEW")
 	include_Boost()

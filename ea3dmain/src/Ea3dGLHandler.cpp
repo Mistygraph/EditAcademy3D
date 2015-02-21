@@ -1,4 +1,4 @@
-// #include <GL/glew.h>
+#include <GL/glew.h>
 #include "Ea3dGLHandler.hpp"
 #include <iostream>
 #include <cstdio>
