@@ -65,7 +65,11 @@ macro(include_cmake_modules name) # cmake support modules
 endmacro()
 # -----------------------------------------------------------------------------
 macro(include_cmake_supported_modules)
-	include_cmake_modules("OPENGL")
+	IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		include_cmake_modules("OPENGL")
+	else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+		include_cmake_modules("OpenGL")
+	endif()
 	include_cmake_modules("GLEW")
 	include_Boost()
 endmacro()
@@ -87,7 +91,11 @@ include_cmake_supported_modules()
 # SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++0x")
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
-set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+endif()
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 
 # set paths
