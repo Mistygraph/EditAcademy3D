@@ -46,4 +46,9 @@ ENDIF()
 
 
 add_executable(EA3D ${SOURCE_FILES} ${HEADER_FILES} ${SHADER_FILES})
-target_link_libraries(EA3D ${LIBRARIES})
+# target_link_libraries(EA3D ${LIBRARIES})
+
+target_link_libraries(EA3D glfw3 pthread GLEW GLU GL Xcursor Xrandr Xxf86vm Xi Xinerama X11 jsoncpp assimp boost_filesystem boost_system boost_log boost_log_setup boost_thread)
+
+# GL GLU glfw3 X11 Xxf86vm Xrandr pthread Xi GLEW jsoncpp assimp boost_filesystem boost_system boost_log boost_log_setup boost_thread 
+# glfw3 pthread GLEW GLU GL rt Xrandr Xxf86vm Xi Xinerama X11

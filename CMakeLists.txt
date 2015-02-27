@@ -19,6 +19,7 @@ macro(include_module name)
 	# -D
 	add_definitions(${${name}_DEFINITIONS}) 
 	include_directories(${${name}_INCLUDE_DIRS})
+
 	set(LIBRARIES ${LIBRARIES} ${${name}_LIBRARIES})
 endmacro()
 
@@ -61,19 +62,24 @@ macro(include_cmake_modules name) # cmake support modules
 	endif()
 endmacro()
 # -----------------------------------------------------------------------------
-macro(include_cmake_supported_modules)
-	
+macro(include_OpenGL)
 	IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 		include_cmake_modules("OPENGL")
-	# else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-		# find_package(OpenGL REQUIRED)
-		# if(${OPENGL_FOUND})
-		# 	add_definitions(${OPENGL_DEFINITIONS}) 
-		# 	include_directories(${OPENGL_INCLUDE_DIR})
-		# 	set(LIBRARIES ${LIBRARIES} ${OPENGL_LIBRARIES})
-
-		# endif()
+	else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+		find_package(OpenGL REQUIRED)
+		if(${OPENGL_FOUND})
+			add_definitions(${OPENGL_DEFINITIONS}) 
+			include_directories(${OPENGL_INCLUDE_DIR})
+			set(LIBRARIES ${LIBRARIES} ${OPENGL_LIBRARIES})
+			# set(LIBRARIES ${LIBRARIES} GL GLU X11)
+		endif()
 	endif()
+endmacro()
+
+# -----------------------------------------------------------------------------
+macro(include_cmake_supported_modules)
+	
+	include_OpenGL()
 	include_cmake_modules("GLEW")
 	include_Boost()
 endmacro()
@@ -88,19 +94,33 @@ message("-- Generator is " ${CMAKE_GENERATOR})
 message("-- Cmake system Type: " ${CMAKE_SYSTEM_NAME})
 message("-- Project binaray dir: " ${PROJECT_BINARY_DIR})
 
-# include basic modules
-include_custom_modules()
-include_cmake_supported_modules()
+# -- include basic modules
+# include_cmake_supported_modules()
+# include_custom_modules()
+include_OpenGL()
+include_module("GLFW")
+include_cmake_modules("GLEW")
+include_cmake_modules("X11")
+#find glm
+include_module("GLM")
+#find JSONCPP
+include_module("JSONCPP")
+#find Assim
+include_module("ASSIMP")
+include_Boost()
+
+# add_definitions(-DlXxf86vm)
 # Compiler Flag
-# SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
+SET( CMAKE_VERBOSE_MAKEFILE on )  # make debug flag
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++0x")
 # set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++ -Wall")
+	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 else (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
 endif()
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 
 # set paths
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})

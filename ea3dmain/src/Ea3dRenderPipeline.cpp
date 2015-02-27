@@ -35,10 +35,10 @@ void Ea3dRenderPipeline::loadModel() {
     if (sc->HasMeshes()) {
         BOOST_LOG_TRIVIAL(debug) << "Number of Meshes = " << sc->mNumMeshes;
         // For each mesh
-        for (auto i = 0; i < sc->mNumMeshes; ++i) {
+        for (unsigned int i = 0; i < sc->mNumMeshes; ++i) {
             // Faces (index / 3)
             BOOST_LOG_TRIVIAL(debug) << "Number of Faces = " << mesh->mNumFaces;
-            for (auto t = 0; t < mesh->mNumFaces; ++t) {
+            for (unsigned int t = 0; t < mesh->mNumFaces; ++t) {
                 unsigned int *ver = mesh->mFaces[t].mIndices;
                 BOOST_LOG_TRIVIAL(trace) << ver[0] << " " << ver[1] << " " << ver[2];
                 this->num_indices += 3;
@@ -52,7 +52,7 @@ void Ea3dRenderPipeline::loadModel() {
                 BOOST_LOG_TRIVIAL(debug) << "Number of Vertices = " << mesh->mNumVertices;
                 // while obj loaded into assimp, they reorganize the content
                 // For each set of vertices
-                for (auto j = 0; j < mesh->mNumVertices; ++j) {
+                for (unsigned int j = 0; j < mesh->mNumVertices; ++j) {
 
                     // Vertices
                     if (mesh->HasPositions()) {

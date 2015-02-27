@@ -3,7 +3,7 @@
 
 #ifndef EA3D_Ea3dShaderLoader_hpp
 #define EA3D_Ea3dShaderLoader_hpp
-#include <string>
+#include <cstring>
 namespace Ea3d {
 char *textFileRead(char *);
 int textFileWrite(char *, char *);
